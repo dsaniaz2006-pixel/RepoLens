@@ -43,8 +43,7 @@ jobs:
         env:
           REPOLENS_TEST_POSTGRES_URL: postgresql+psycopg://repolens:integration-test-only@127.0.0.1:5432/repolens_test
       - run: python -m pytest -q
-        env:
-          REPOLENS_TEST_POSTGRES_URL: postgresql+psycopg://repolens:integration-test-only@127.0.0.1:5432/repolens_test
+      
       - run: npx playwright install --with-deps chromium && npm run test:browser
         working-directory: frontend
       - name: Real HTTP smoke (synthetic accounts; not OAuth acceptance)
