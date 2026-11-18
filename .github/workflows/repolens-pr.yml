@@ -1,0 +1,40 @@
+name: RepoLens PR impact
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+  pull-requests: write
+concurrency:
+  group: repolens-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  analyze:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # Only run trusted base code. Never check out or execute the PR head.
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - name: Generate impact report
+        env:
+          REPOSITORY_URL: ${{ github.event.repository.html_url }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python -m backend.cli.main "$REPOSITORY_URL" --pr "$PR_NUMBER" --output comment.md
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const {prepareComment, upsertComment} = require(path.join(process.env.GITHUB_WORKSPACE, 'scripts', 'pr_comment.cjs'));
+            const body = prepareComment(fs.readFileSync('comment.md', 'utf8'));
+            await upsertComment(github, context, body);

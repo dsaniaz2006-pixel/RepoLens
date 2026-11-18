@@ -1,0 +1,280 @@
+{
+  "notes": "12 source-reviewed exact-revision labels, unchanged during tuning. Full live baseline and retest: 4/12 -> 11/12 hit@5, with one strict cancellation-file miss documented. See reports/rag-baseline.json and reports/rag-retest.json. Independent human review was not performed.",
+  "cases": [
+    {
+      "repository": "pallets/flask",
+      "question": "Where are routes registered and dispatched?",
+      "expected_paths": [
+        "src/flask/sansio/app.py",
+        "src/flask/app.py"
+      ],
+      "revision": "d086db856be187255b8ec61ef409357393020f32",
+      "label_review": "Source inspected by assistant on 2026-10-17; independent human review was not performed.",
+      "evidence": [
+        {
+          "path": "src/flask/sansio/app.py",
+          "start_line": 606,
+          "end_line": 666,
+          "source_url": "https://github.com/pallets/flask/blob/d086db856be187255b8ec61ef409357393020f32/src/flask/sansio/app.py#L606-L666",
+          "file_sha256": "cf5df9f2972be7cad9878df7ea321804617d769f47823984abbe0a9b1cbc460b"
+        },
+        {
+          "path": "src/flask/app.py",
+          "start_line": 966,
+          "end_line": 1024,
+          "source_url": "https://github.com/pallets/flask/blob/d086db856be187255b8ec61ef409357393020f32/src/flask/app.py#L966-L1024",
+          "file_sha256": "510b83880097af4450933561cba96e5a1c432bf53ea9264ca947da53752e3a2b"
+        }
+      ]
+    },
+    {
+      "repository": "pallets/flask",
+      "question": "How are application settings loaded and overridden?",
+      "expected_paths": [
+        "src/flask/config.py"
+      ],
+      "revision": "d086db856be187255b8ec61ef409357393020f32",
+      "label_review": "Source inspected by assistant on 2026-10-17; independent human review was not performed.",
+      "evidence": [
+        {
+          "path": "src/flask/config.py",
+          "start_line": 102,
+          "end_line": 184,
+          "source_url": "https://github.com/pallets/flask/blob/d086db856be187255b8ec61ef409357393020f32/src/flask/config.py#L102-L184",
+          "file_sha256": "3e2a85d033da9ba1d6d051f8087d61a574c17b7d0d4b38cf10ec2bcf56fa92dd"
+        },
+        {
+          "path": "src/flask/config.py",
+          "start_line": 304,
+          "end_line": 322,
+          "source_url": "https://github.com/pallets/flask/blob/d086db856be187255b8ec61ef409357393020f32/src/flask/config.py#L304-L322",
+          "file_sha256": "3e2a85d033da9ba1d6d051f8087d61a574c17b7d0d4b38cf10ec2bcf56fa92dd"
+        }
+      ]
+    },
+    {
+      "repository": "pallets/flask",
+      "question": "Where is request context managed?",
+      "expected_paths": [
+        "src/flask/ctx.py"
+      ],
+      "revision": "d086db856be187255b8ec61ef409357393020f32",
+      "label_review": "Source inspected by assistant on 2026-10-17; independent human review was not performed.",
+      "evidence": [
+        {
+          "path": "src/flask/ctx.py",
+          "start_line": 340,
+          "end_line": 350,
+          "source_url": "https://github.com/pallets/flask/blob/d086db856be187255b8ec61ef409357393020f32/src/flask/ctx.py#L340-L350",
+          "file_sha256": "e21952d044159438765eb27848b0fe4c75f83faee8645181a09a1eccb1d5cab7"
+        },
+        {
+          "path": "src/flask/ctx.py",
+          "start_line": 416,
+          "end_line": 490,
+          "source_url": "https://github.com/pallets/flask/blob/d086db856be187255b8ec61ef409357393020f32/src/flask/ctx.py#L416-L490",
+          "file_sha256": "e21952d044159438765eb27848b0fe4c75f83faee8645181a09a1eccb1d5cab7"
+        }
+      ]
+    },
+    {
+      "repository": "pallets/flask",
+      "question": "How are sessions created and saved?",
+      "expected_paths": [
+        "src/flask/sessions.py"
+      ],
+      "revision": "d086db856be187255b8ec61ef409357393020f32",
+      "label_review": "Source inspected by assistant on 2026-10-17; independent human review was not performed.",
+      "evidence": [
+        {
+          "path": "src/flask/sessions.py",
+          "start_line": 323,
+          "end_line": 399,
+          "source_url": "https://github.com/pallets/flask/blob/d086db856be187255b8ec61ef409357393020f32/src/flask/sessions.py#L323-L399",
+          "file_sha256": "26fa7cc311b841f8409ad93933d3a3a52b068150c6f15fc3cd0c107e7a9aaf9d"
+        }
+      ]
+    },
+    {
+      "repository": "axios/axios",
+      "question": "Where are request interceptors applied?",
+      "expected_paths": [
+        "lib/core/Axios.js"
+      ],
+      "revision": "326843a3902d73c9f6af9bad7b55e2412566a251",
+      "label_review": "Source inspected by assistant on 2026-10-17; independent human review was not performed.",
+      "evidence": [
+        {
+          "path": "lib/core/Axios.js",
+          "start_line": 219,
+          "end_line": 307,
+          "source_url": "https://github.com/axios/axios/blob/326843a3902d73c9f6af9bad7b55e2412566a251/lib/core/Axios.js#L219-L307",
+          "file_sha256": "80d1d5e07eb55f5a697f0e45c8297a4067b53d2d1cb562ac28d3e7667e42e12c"
+        }
+      ]
+    },
+    {
+      "repository": "axios/axios",
+      "question": "How are default configuration and per-request configuration merged?",
+      "expected_paths": [
+        "lib/core/Axios.js",
+        "lib/core/mergeConfig.js"
+      ],
+      "revision": "326843a3902d73c9f6af9bad7b55e2412566a251",
+      "label_review": "Source inspected by assistant on 2026-10-17; independent human review was not performed.",
+      "evidence": [
+        {
+          "path": "lib/core/Axios.js",
+          "start_line": 125,
+          "end_line": 135,
+          "source_url": "https://github.com/axios/axios/blob/326843a3902d73c9f6af9bad7b55e2412566a251/lib/core/Axios.js#L125-L135",
+          "file_sha256": "80d1d5e07eb55f5a697f0e45c8297a4067b53d2d1cb562ac28d3e7667e42e12c"
+        },
+        {
+          "path": "lib/core/mergeConfig.js",
+          "start_line": 199,
+          "end_line": 243,
+          "source_url": "https://github.com/axios/axios/blob/326843a3902d73c9f6af9bad7b55e2412566a251/lib/core/mergeConfig.js#L199-L243",
+          "file_sha256": "0bb785d8758b9e3ad2d65edd25bc58fda6112831e43d3aa18f19d06f35d10b76"
+        }
+      ]
+    },
+    {
+      "repository": "axios/axios",
+      "question": "How does Axios select a transport adapter?",
+      "expected_paths": [
+        "lib/core/dispatchRequest.js",
+        "lib/adapters/adapters.js"
+      ],
+      "revision": "326843a3902d73c9f6af9bad7b55e2412566a251",
+      "label_review": "Source inspected by assistant on 2026-10-17; independent human review was not performed.",
+      "evidence": [
+        {
+          "path": "lib/core/dispatchRequest.js",
+          "start_line": 67,
+          "end_line": 71,
+          "source_url": "https://github.com/axios/axios/blob/326843a3902d73c9f6af9bad7b55e2412566a251/lib/core/dispatchRequest.js#L67-L71",
+          "file_sha256": "982b1cdacdb658045d3b174327d3889f9033e26e4680ec46d61eeeec6a74c5ba"
+        },
+        {
+          "path": "lib/adapters/adapters.js",
+          "start_line": 65,
+          "end_line": 114,
+          "source_url": "https://github.com/axios/axios/blob/326843a3902d73c9f6af9bad7b55e2412566a251/lib/adapters/adapters.js#L65-L114",
+          "file_sha256": "2d3df49937264cb77ddfae5121bfb15f606b6b8d74582da4691bca983fc81a5d"
+        }
+      ]
+    },
+    {
+      "repository": "axios/axios",
+      "question": "Where is a request cancellation handled?",
+      "expected_paths": [
+        "lib/core/dispatchRequest.js"
+      ],
+      "revision": "326843a3902d73c9f6af9bad7b55e2412566a251",
+      "label_review": "Source inspected by assistant on 2026-10-17; independent human review was not performed.",
+      "evidence": [
+        {
+          "path": "lib/core/dispatchRequest.js",
+          "start_line": 18,
+          "end_line": 26,
+          "source_url": "https://github.com/axios/axios/blob/326843a3902d73c9f6af9bad7b55e2412566a251/lib/core/dispatchRequest.js#L18-L26",
+          "file_sha256": "982b1cdacdb658045d3b174327d3889f9033e26e4680ec46d61eeeec6a74c5ba"
+        },
+        {
+          "path": "lib/core/dispatchRequest.js",
+          "start_line": 56,
+          "end_line": 96,
+          "source_url": "https://github.com/axios/axios/blob/326843a3902d73c9f6af9bad7b55e2412566a251/lib/core/dispatchRequest.js#L56-L96",
+          "file_sha256": "982b1cdacdb658045d3b174327d3889f9033e26e4680ec46d61eeeec6a74c5ba"
+        }
+      ]
+    },
+    {
+      "repository": "pallets/markupsafe",
+      "question": "Which function escapes unsafe strings for HTML?",
+      "expected_paths": [
+        "src/markupsafe/__init__.py"
+      ],
+      "revision": "4e111271b1494995708a9e878a10829b5e10c7ba",
+      "label_review": "Source inspected by assistant on 2026-10-17; independent human review was not performed.",
+      "evidence": [
+        {
+          "path": "src/markupsafe/__init__.py",
+          "start_line": 24,
+          "end_line": 45,
+          "source_url": "https://github.com/pallets/markupsafe/blob/4e111271b1494995708a9e878a10829b5e10c7ba/src/markupsafe/__init__.py#L24-L45",
+          "file_sha256": "310afadaabdd94a53d5b57c84cbd56b1ebe1877454be8ba986237d142e533df0"
+        }
+      ]
+    },
+    {
+      "repository": "pallets/markupsafe",
+      "question": "How does the Markup type preserve safe markup?",
+      "expected_paths": [
+        "src/markupsafe/__init__.py"
+      ],
+      "revision": "4e111271b1494995708a9e878a10829b5e10c7ba",
+      "label_review": "Source inspected by assistant on 2026-10-17; independent human review was not performed.",
+      "evidence": [
+        {
+          "path": "src/markupsafe/__init__.py",
+          "start_line": 84,
+          "end_line": 145,
+          "source_url": "https://github.com/pallets/markupsafe/blob/4e111271b1494995708a9e878a10829b5e10c7ba/src/markupsafe/__init__.py#L84-L145",
+          "file_sha256": "310afadaabdd94a53d5b57c84cbd56b1ebe1877454be8ba986237d142e533df0"
+        }
+      ]
+    },
+    {
+      "repository": "pallets/markupsafe",
+      "question": "How is the __html__ protocol handled?",
+      "expected_paths": [
+        "src/markupsafe/__init__.py"
+      ],
+      "revision": "4e111271b1494995708a9e878a10829b5e10c7ba",
+      "label_review": "Source inspected by assistant on 2026-10-17; independent human review was not performed.",
+      "evidence": [
+        {
+          "path": "src/markupsafe/__init__.py",
+          "start_line": 24,
+          "end_line": 45,
+          "source_url": "https://github.com/pallets/markupsafe/blob/4e111271b1494995708a9e878a10829b5e10c7ba/src/markupsafe/__init__.py#L24-L45",
+          "file_sha256": "310afadaabdd94a53d5b57c84cbd56b1ebe1877454be8ba986237d142e533df0"
+        },
+        {
+          "path": "src/markupsafe/__init__.py",
+          "start_line": 122,
+          "end_line": 134,
+          "source_url": "https://github.com/pallets/markupsafe/blob/4e111271b1494995708a9e878a10829b5e10c7ba/src/markupsafe/__init__.py#L122-L134",
+          "file_sha256": "310afadaabdd94a53d5b57c84cbd56b1ebe1877454be8ba986237d142e533df0"
+        }
+      ]
+    },
+    {
+      "repository": "pallets/markupsafe",
+      "question": "Which tests verify escaping and concatenation?",
+      "expected_paths": [
+        "tests/test_markupsafe.py"
+      ],
+      "revision": "4e111271b1494995708a9e878a10829b5e10c7ba",
+      "label_review": "Source inspected by assistant on 2026-10-17; independent human review was not performed.",
+      "evidence": [
+        {
+          "path": "tests/test_markupsafe.py",
+          "start_line": 13,
+          "end_line": 16,
+          "source_url": "https://github.com/pallets/markupsafe/blob/4e111271b1494995708a9e878a10829b5e10c7ba/tests/test_markupsafe.py#L13-L16",
+          "file_sha256": "ade5101f1d0e77ccb15718b3aeb9a2afedf45dd38efb82ec2b9fcc4c10125512"
+        },
+        {
+          "path": "tests/test_markupsafe.py",
+          "start_line": 77,
+          "end_line": 91,
+          "source_url": "https://github.com/pallets/markupsafe/blob/4e111271b1494995708a9e878a10829b5e10c7ba/tests/test_markupsafe.py#L77-L91",
+          "file_sha256": "ade5101f1d0e77ccb15718b3aeb9a2afedf45dd38efb82ec2b9fcc4c10125512"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="RepoLens">
+  <defs>
+    <linearGradient id="rlBlue" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#20384a"/>
+      <stop offset="1" stop-color="#28547a"/>
+    </linearGradient>
+    <linearGradient id="rlStroke" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#a6d7f3"/>
+      <stop offset="1" stop-color="#87bce2"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#121416"/>
+  <rect x="3" y="3" width="58" height="58" rx="14" fill="url(#rlBlue)" stroke="#6092b6" stroke-width="1.5"/>
+  <path d="M23 19 11.5 32 23 45 M41 19 52.5 32 41 45" fill="none" stroke="url(#rlStroke)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m36 16-8 32" fill="none" stroke="#e0eef9" stroke-width="4.2" stroke-linecap="round"/>
+  <circle cx="49" cy="13" r="2" fill="#87bce2" opacity=".8"/>
+</svg>

@@ -1,0 +1,4 @@
+/* Calm, accessible typography reveal for public pages, 40 ms stagger. */
+.rl-reveal-on{animation:rl-public-text-reveal .95s cubic-bezier(.22,1,.36,1) var(--rl-reveal-delay,0ms) both}
+@keyframes rl-public-text-reveal{from{opacity:.58;filter:blur(3px);transform:translateY(5px)}to{opacity:1;filter:blur(0);transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.rl-reveal-on{animation:none!important;filter:none!important;transform:none!important}}

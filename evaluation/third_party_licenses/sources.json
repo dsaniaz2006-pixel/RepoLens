@@ -1,0 +1,20 @@
+[
+  {
+    "repository": "pallets/markupsafe",
+    "revision": "4e111271b1494995708a9e878a10829b5e10c7ba",
+    "upstream_path": "LICENSE.txt",
+    "local_file": "pallets-markupsafe-LICENSE.txt"
+  },
+  {
+    "repository": "axios/axios",
+    "revision": "326843a3902d73c9f6af9bad7b55e2412566a251",
+    "upstream_path": "LICENSE",
+    "local_file": "axios-axios-LICENSE.txt"
+  },
+  {
+    "repository": "pallets/flask",
+    "revision": "d086db856be187255b8ec61ef409357393020f32",
+    "upstream_path": "LICENSE.txt",
+    "local_file": "pallets-flask-LICENSE.txt"
+  }
+]

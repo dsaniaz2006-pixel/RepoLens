@@ -1,0 +1,18 @@
+services:
+  database:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: repolens
+      POSTGRES_DB: repolens
+      POSTGRES_PASSWORD: ${REPOLENS_DB_PASSWORD:?Set REPOLENS_DB_PASSWORD first}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - repolens_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U repolens"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  repolens_postgres:

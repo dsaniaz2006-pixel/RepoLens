@@ -1,0 +1,91 @@
+/* RepoLens workspace upgrade — scoped to the authenticated React application.
+   Palette: charcoal #121416, graphite #222528, blue #28547a. */
+.app{--rl-water:#28547a;--rl-water-soft:#87bce2;--rl-liquid-edge:#547e9d}
+.app .side{background:#171b1e}
+.app.light .side{background:var(--side)}
+/* Active nav is a water-filled capsule; navigation semantics remain ordinary buttons. */
+.app .nav{position:relative;isolation:isolate;overflow:hidden;border:1px solid transparent;border-radius:14px;transition:background .18s ease,border-color .18s ease,box-shadow .2s ease}
+.app .nav.active{background:linear-gradient(115deg,#1b394f,#28547a);border-color:#5e97bb;box-shadow:inset 0 1px 0 #9ccbe640,inset 0 -2px 8px #061521aa,0 4px 16px #0a2a3d55}
+.app .nav:hover{border-color:#406b8e;box-shadow:inset 0 1px 0 #d6effa16}
+.app.light .nav.active{background:#d1e4f2;border-color:#7eb1d5;box-shadow:inset 0 1px 0 #fff,0 4px 13px #305b811a}
+/* Task 6: liquid-glass interaction for every ordinary button. One delegated
+   pointer listener injects a short-lived wave; no per-button WebGL canvases. */
+.app button:not(.rl-theme-switch){position:relative;isolation:isolate;overflow:hidden;transition:background-color .2s ease,border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+.app button:not(:disabled):not(.rl-theme-switch):hover{box-shadow:inset 0 1px 0 #d9f2fc26,0 5px 15px #173a542a}
+.app button:not(:disabled):not(.rl-theme-switch):active{transform:scale(.983)}
+.app button:not(.rl-theme-switch)::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:linear-gradient(120deg,transparent 12%,#b1e7ff0a 44%,#b5e7ff18 50%,transparent 82%);opacity:0;transform:translateX(-50%);transition:transform .5s ease,opacity .3s ease;z-index:-1}
+.app button:not(.rl-theme-switch):hover::before,.app button:not(.rl-theme-switch):focus-visible::before{opacity:1;transform:translateX(45%)}
+.rl-liquid-ripple{position:absolute;pointer-events:none;z-index:2;width:14px;height:14px;border:1px solid #bee7ff99;border-radius:50%;background:#8fc8ef44;transform:translate(-50%,-50%) scale(.2);animation:rl-liquid-wave .56s ease-out forwards}
+@keyframes rl-liquid-wave{0%{opacity:.8;transform:translate(-50%,-50%) scale(.2)}100%{opacity:0;transform:translate(-50%,-50%) scale(16)}}
+/* Task 2: accessible, comfortably spaced tab pills and blue action buttons. */
+.hub-heading{margin-bottom:19px}.hub-heading h2{font-size:clamp(22px,2.5vw,27px)}.hub-heading .muted{font-size:14px;margin:10px 0 0}
+.app .hub-tabs{display:flex;flex-wrap:wrap;gap:9px;padding:10px 0 16px;margin-bottom:18px;overflow:visible}
+.app .hub-tabs .tab{border:1px solid var(--border);border-radius:999px;padding:11px 16px;background:var(--input);font-weight:600;white-space:normal}
+.app .hub-tabs .tab.selected{border:1px solid #6296ba;background:linear-gradient(115deg,#244861,#28547a);color:#f5fbff;box-shadow:inset 0 1px 0 #ffffff2b,0 3px 12px #1c4c7050}
+.app .hub-tabs .tab:hover:not(.selected){background:#304251;border-color:#5a83a1;color:var(--text)}
+.app.light .hub-tabs .tab:hover:not(.selected){background:#d7e6f0}
+.app .hub-action-bar{display:flex;gap:11px;align-items:center;flex-wrap:wrap;margin:20px 0}
+.app .hub-panel>button,.app .hub-action-bar button,.app .hub-panel .actions button{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:11px;border:1px solid #5e8eac;padding:11px 17px;background:linear-gradient(120deg,#244d6b,#316b96);color:#f6fbff;font-weight:600;line-height:1.35;min-height:43px;margin:4px 9px 4px 0}
+.app .hub-panel>button:hover:not(:disabled),.app .hub-action-bar button:hover:not(:disabled),.app .hub-panel .actions button:hover:not(:disabled){background:linear-gradient(120deg,#356988,#397ba9)}
+.app .hub-action-bar button:last-child{background:var(--input);border-color:var(--border);color:var(--text)}
+.app .hub-panel article{border:1px solid var(--border);border-radius:11px;padding:15px;margin:12px 0;background:var(--input)}
+.app .hub-panel article .actions{flex-wrap:wrap;margin-top:12px}
+.app .hub-panel select{cursor:pointer}
+/* Task 3: structured, calm configuration overview. */
+.app .settings-page{padding:20px 22px}
+.settings-banner{display:flex;gap:19px;align-items:center;padding:24px 25px;border:1px solid var(--border);border-radius:16px;background:radial-gradient(ellipse at 95% 0%,#28547a44,transparent 60%),var(--input);margin-bottom:20px}
+.settings-banner-mark{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;color:var(--rl-highlight);background:#28547a25;border:1px solid #6696b65c;flex-shrink:0}
+.settings-banner-title{flex:1;min-width:0}.settings-banner-title h2{font-size:clamp(23px,2.5vw,30px);margin:2px 0}.settings-banner-title .eyebrow{margin:0;font-size:11px}.settings-banner-title p:last-child{margin:7px 0 0;font-size:14px}
+.settings-banner .outline{flex-shrink:0}
+.settings-overview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.settings-status-card{border:1px solid var(--border);border-radius:13px;background:var(--input);padding:20px;display:flex;flex-direction:column;gap:7px;min-width:0}
+.settings-status-card svg{color:var(--rl-highlight)}.settings-status-card span{font-size:13px;color:var(--muted)}.settings-status-card strong{font-size:18px;overflow-wrap:anywhere}.settings-status-card small{color:var(--muted);line-height:1.4}
+.settings-message{display:flex;align-items:start;gap:10px;font-size:13px;color:var(--muted);margin-top:12px}
+.settings-message svg{flex-shrink:0;color:var(--rl-highlight)}
+.settings-privacy-note{margin:20px 0 10px;display:flex;gap:14px;align-items:start;border-left:3px solid #4b7c9d;border-radius:8px;background:var(--input);padding:14px 17px}
+.settings-privacy-note svg{flex-shrink:0;color:var(--rl-highlight)}.settings-privacy-note p{margin:0;font-size:13px;color:var(--muted);line-height:1.7}
+/* Task 4: published gallery content lives inside the workspace shell. */
+.gallery-workspace{padding:23px;min-height:65vh}
+.gallery-head{display:flex;justify-content:space-between;align-items:center;gap:18px}.gallery-head h2{font-size:clamp(23px,3vw,30px)}.gallery-head .muted{max-width:660px;font-size:14px;line-height:1.65}
+.gallery-summary{border-bottom:1px solid var(--border);padding-bottom:17px;color:var(--muted)}
+.gallery-search{display:block;max-width:450px;font-size:13px;color:var(--muted);margin:16px 0}.gallery-search input{display:block;width:100%;margin-top:7px}
+.gallery-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.app .gallery-tile{display:flex;align-items:center;gap:14px;border:1px solid var(--border);border-radius:12px;padding:18px;text-align:left;background:var(--input);color:var(--text);min-width:0}
+.app .gallery-tile:hover{border-color:#679fc3;background:#2a343c}.gallery-tile>svg:first-child{color:var(--rl-highlight);flex-shrink:0}.gallery-tile>svg:last-child{margin-left:auto;color:var(--rl-highlight);flex-shrink:0}
+.gallery-tile span{min-width:0}.gallery-tile strong,.gallery-tile small{display:block;overflow-wrap:anywhere}.gallery-tile small{color:var(--muted);font-size:12px;margin-top:6px}
+.gallery-detail{margin-top:15px}.gallery-detail-bar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px}
+.gallery-report-frame{display:block;width:100%;height:max(70vh,620px);min-height:620px;border:1px solid var(--border);border-radius:12px;background:var(--bg)}
+/* Task 8: transient particle welcome, nonblocking and one-time per login. */
+.rl-welcome-scene{position:fixed;inset:0;z-index:50;display:grid;place-items:center;pointer-events:none;background:#121416f0;animation:rl-welcome-depart 4.2s ease-in-out both}
+.rl-welcome-inner{display:flex;flex-direction:column;align-items:center;gap:5px;color:#a8cde5;font-size:15px;text-align:center}
+.rl-welcome-canvas{width:min(620px,95vw);height:auto;aspect-ratio:620/170;display:block}
+@keyframes rl-welcome-depart{0%,78%{opacity:1}100%{opacity:0}}
+/* 40 ms between nearby text/data elements; each element settles over 950 ms. */
+.rl-text-reveal{animation:rl-reveal-words .95s cubic-bezier(.22,1,.36,1) var(--rl-reveal-delay,0ms) both}
+@keyframes rl-reveal-words{from{opacity:.58;filter:blur(3px);transform:translateY(5px)}to{opacity:1;filter:blur(0);transform:translateY(0)}}
+@media(max-width:960px){.settings-overview-grid{grid-template-columns:1fr}.gallery-head{align-items:flex-start;flex-direction:column}}
+@media(max-width:700px){.settings-banner{padding:15px;flex-wrap:wrap}.settings-banner-mark{width:44px;height:44px}.gallery-tiles{grid-template-columns:1fr}.gallery-workspace{padding:15px}.app .hub-tabs .tab{padding:9px 11px;font-size:13px}.gallery-report-frame{min-height:520px}}
+@media(prefers-reduced-motion:reduce){.app button,.rl-text-reveal,.app .content>section,.app .content>.home-page{animation:none!important;transition:none!important}.rl-liquid-ripple{display:none}.rl-welcome-scene{animation:rl-welcome-depart .5s linear both!important}}
+
+/* Hydrated active-navigation waterline: a single animated drop travels between
+   active sidebar items, with spring easing and a calm blue caustic reflection. */
+.app .side nav{position:relative;isolation:isolate}
+.app .side nav .nav{z-index:1}
+.app .side nav .rl-nav-water{position:absolute;top:0;left:0;z-index:0;opacity:0;pointer-events:none;border-radius:14px;border:1px solid #6796b4;background:radial-gradient(ellipse at 30% 0%,#a4dafa32,transparent 58%),linear-gradient(130deg,#1d3e55,#28547a);box-shadow:inset 0 1px 1px #daf0ff62,inset 0 -2px 7px #0a26387a,0 6px 20px #163c585c;transition:transform .42s cubic-bezier(.2,1.24,.37,1),width .42s cubic-bezier(.2,1.24,.37,1),height .42s cubic-bezier(.2,1.24,.37,1),opacity .2s}
+.app .side nav.has-water .rl-nav-water{opacity:1}
+.app .side nav.has-water .nav.active{background:transparent;box-shadow:none;border-color:#779fbe99}
+.app.light .side nav .rl-nav-water{background:radial-gradient(ellipse at 30% 0%,#fff8,transparent 58%),linear-gradient(125deg,#d8e9f4,#bdd8eb);box-shadow:inset 0 1px 1px #fff,0 5px 15px #28547a20}
+@media(prefers-reduced-motion:reduce){.app .side nav .rl-nav-water{transition:none!important}}
+
+/* Page views change only from intentional clicks, NEVER from wheel/trackpad.
+   Native scrolling remains available within the current view. */
+.app .content.rl-workspace-content {
+  animation:rl-workspace-click-enter 300ms cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes rl-workspace-click-enter {
+  from {opacity:.9;transform:translate3d(0,4px,0)}
+  to {opacity:1;transform:translate3d(0,0,0)}
+}
+@media(prefers-reduced-motion:reduce){
+ .app .content.rl-workspace-content {animation:none!important;transform:none!important}
+}

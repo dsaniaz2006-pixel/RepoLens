@@ -1,0 +1,9 @@
+{
+  "gallery_repositories": 20,
+  "github_freshness_api": "passed",
+  "deliberately_old_sha_flagged": true,
+  "gemini": "not_run",
+  "oauth": "not_run",
+  "postgres": "not_run",
+  "ollama": "not_run"
+}

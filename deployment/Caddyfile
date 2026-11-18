@@ -1,0 +1,8 @@
+# Automatic ACME TLS: DNS A/AAAA record and ports 80/443 must reach this host.
+{$REPOLENS_DOMAIN} {
+    encode zstd gzip
+    reverse_proxy app:8000
+    header {
+        -Server
+    }
+}

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#121416">
+  <meta name="description" content="RepoLens turns unfamiliar GitHub repositories into evidence-backed architecture maps, guided reading paths, and source-grounded answers.">
+  <title>RepoLens — Your codebase, in focus</title>
+  <link rel="icon" href="/favicon-v2.svg?v=20" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/relay-landing.css">
+  <script type="module" src="/site/app.js"></script>
+  <script type="module" src="/site/landing.js"></script>
+<link rel="stylesheet" href="/reveal.css"/><script defer src="/site/reveal.js"></script></head>
+<body class="relay-landing">
+  <a href="#main" class="skip">Skip to content</a>
+  <div class="landing-shell">
+    <header class="header landing-header">
+      <a class="brand landing-brand" href="/" aria-label="RepoLens home">
+        <span class="brand-glyph" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none"><path d="M22 3 40 13 22 23 4 13 22 3Z"/><path d="m6 22 16 9 16-9"/><path d="m6 31 16 9 16-9"/></svg></span>
+        <span>Repo<span class="brand-tone">Lens</span></span>
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        <a class="desktop-nav" href="#platform">Product</a>
+        <a class="desktop-nav" href="#how-it-works">How it works</a>
+        <a href="/examples/">Examples</a>
+        <a href="/dashboard/">Workspace</a>
+        <a href="/gallery/">Public gallery</a>
+        <a class="login-link" href="/login/">Log in <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="relay-hero" aria-labelledby="hero-title">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-depth-field" aria-hidden="true">
+          <div class="depth-halo"></div>
+          <div class="depth-portal"></div>
+          <div class="depth-floor"></div>
+        </div>
+        <canvas class="stream-canvas" id="stream-canvas" aria-hidden="true"></canvas>
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="hero-topline"><span class="eyebrow hero-status"><span class="live-dot"></span> CODE INTELLIGENCE / SYSTEM READY</span><span class="hero-index">01 / 05</span></div>
+        <div class="hero-layout">
+          <div class="hero-copy" data-reveal>
+            <div class="eyebrow hero-kicker">REPOLENS / A BETTER WAY INTO CODE</div>
+            <h1 id="hero-title">The code makes<br>more sense <em>now.</em></h1>
+            <p class="hero-subtitle">Go from unfamiliar repository to clear next steps. Explore architecture, follow code paths, and ask questions backed by the actual source.</p>
+            <div class="hero-actions"><a class="button relay-primary" href="/signup/">Start exploring <span aria-hidden="true">↗</span></a><a class="relay-text-link" href="#platform">See how it works <span aria-hidden="true">↗</span></a></div>
+            <div class="hero-caption"><span class="caption-tick"></span> Works with public GitHub repositories <span class="caption-sep">/</span> Google & GitHub sign-in</div>
+          </div>
+
+          <div class="hero-art" data-reveal>
+            <div class="hero-orbit orbit-one" aria-hidden="true"></div><div class="hero-orbit orbit-two" aria-hidden="true"></div>
+            <div class="glass-backplane glass-backplane-far" aria-hidden="true"></div>
+            <div class="glass-backplane glass-backplane-near" aria-hidden="true"></div>
+            <div class="glass-frame" data-tilt-window aria-label="Illustrative RepoLens source analysis preview">
+              <div class="glass-top"><span class="glass-brand"><span class="glass-symbol">⧉</span> repolens <small>/ workspace</small></span><span class="live-indicator"><i></i> PREVIEW</span></div>
+              <div class="glass-context"><span class="repo-mini-icon">&lt;/&gt;</span><div><span class="glass-caption">ACTIVE REPOSITORY</span><strong>pallets / flask</strong></div><span class="glass-revision">PYTHON ↗</span></div>
+              <div class="preview-tabs" aria-label="Preview panels"><button type="button" data-preview="architecture" class="is-active" aria-pressed="true">Overview</button><button type="button" data-preview="flow" aria-pressed="false">Code flow</button><button type="button" data-preview="evidence" aria-pressed="false">Evidence</button></div>
+              <div class="preview-content" aria-live="polite">
+                <div class="preview-panel" data-panel="architecture"><div class="panel-head"><span>REPOSITORY MAP</span><span class="panel-head-tag">SOURCE-CONTEXT</span></div><div class="map-graph" aria-hidden="true"><svg viewBox="0 0 390 165" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="map-blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#75B9E7"/><stop offset="1" stop-color="#2D5678"/></linearGradient></defs><path class="graph-link" d="M190 46 C190 85 70 60 70 119"/><path class="graph-link" d="M190 46 C190 90 190 81 190 119"/><path class="graph-link" d="M190 46 C190 85 316 61 316 119"/><rect class="node-main" x="129" y="12" width="122" height="42" rx="10"/><text x="190" y="38" text-anchor="middle">flask / app.py</text><rect class="node-leaf" x="17" y="111" width="105" height="40" rx="9"/><text x="69" y="135" text-anchor="middle">routes</text><rect class="node-leaf" x="138" y="111" width="105" height="40" rx="9"/><text x="190" y="135" text-anchor="middle">dispatch</text><rect class="node-leaf" x="260" y="111" width="113" height="40" rx="9"/><text x="316" y="135" text-anchor="middle">blueprints</text></svg></div><div class="panel-note"><span class="dot-blue"></span> Illustrative map — verify relationships against source.</div></div>
+                <div class="preview-panel" data-panel="flow" hidden><div class="panel-head"><span>CALL RELATIONSHIPS</span><span class="panel-head-tag">TRACE</span></div><div class="flow-preview"><span>Request</span><b aria-hidden="true">→</b><span>Routing</span><b aria-hidden="true">→</b><span>View</span></div><div class="flow-lines"><div><span>01</span> Resolve URL pattern <i>source</i></div><div><span>02</span> Match a registered view <i>source</i></div><div><span>03</span> Inspect the response path <i>review</i></div></div><div class="panel-note">Conceptual illustration; the actual tracer marks inferred links.</div></div>
+                <div class="preview-panel" data-panel="evidence" hidden><div class="panel-head"><span>SOURCE EVIDENCE</span><span class="panel-head-tag">CITATIONS</span></div><div class="source-lines"><div><span>01</span><code>README.md</code><small>Overview</small></div><div><span>02</span><code>pyproject.toml</code><small>Dependencies</small></div><div><span>03</span><code>src/flask/app.py</code><small>Application</small></div><div><span>04</span><code>src/flask/blueprints.py</code><small>Structure</small></div></div><div class="panel-note">See the source before you trust the summary.</div></div>
+              </div>
+              <div class="glass-footer"><span><span class="faint-ring"></span> EXAMPLE / NOT A LIVE SCAN</span><a href="/reports/pallets-flask-report.md">Read sample report ↗</a></div>
+            </div>
+            <div class="hero-float float-one" aria-hidden="true"><span>↗</span> source linked</div><div class="hero-float float-two" aria-hidden="true"><span>◎</span> context loaded</div>
+          </div>
+        </div>
+        <div class="hero-bottom"><span>BUILT FOR THE MOMENT YOU OPEN AN UNFAMILIAR REPO</span><a href="#platform" aria-label="Scroll to product features"><span class="scroll-line"></span> SCROLL TO EXPLORE</a></div>
+      </section>
+
+      <nav class="product-links relay-resources" aria-label="Product resources"><span class="resource-intro">EXPLORE MORE <span aria-hidden="true">↗</span></span><a href="/docs/">Docs</a><a href="/demo/">Demo</a><a href="/examples/">Examples</a><a href="/pricing/">Access</a><a href="/blog/">Blog</a></nav>
+
+      <section class="source-strip" aria-label="Open-source examples"><div class="section-container source-strip-inner"><span class="eyebrow">EXPLORE REAL OPEN SOURCE</span><div class="source-repos"><a href="https://github.com/pallets/flask" target="_blank" rel="noopener noreferrer">pallets / flask <span>↗</span></a><a href="https://github.com/axios/axios" target="_blank" rel="noopener noreferrer">axios / axios <span>↗</span></a><a href="https://github.com/fastapi/fastapi" target="_blank" rel="noopener noreferrer">fastapi / fastapi <span>↗</span></a></div></div></section>
+
+      <section class="relay-section platform-section" id="platform" aria-labelledby="platform-title">
+        <div class="section-container">
+          <div class="section-intro" data-reveal><span class="eyebrow section-label"><span class="label-line"></span> 01 / THE PLATFORM</span><h2 id="platform-title">Clarity, without<br><em>the guesswork.</em></h2><p>Your repository is more than a file tree. RepoLens helps you see the structure, follow the evidence and decide what to read next.</p></div>
+          <div class="platform-layout">
+            <article class="focus-card" data-reveal><div class="card-header"><span class="eyebrow">01 / CONNECT THE DOTS</span><span class="small-icon">↗</span></div><div class="focus-diagram" aria-hidden="true"><div class="diagram-mesh"></div><div class="focus-node node-center">&lt;/&gt;</div><div class="focus-node node-a">API</div><div class="focus-node node-b">RAG</div><div class="focus-node node-c">DB</div><div class="focus-node node-d">UI</div><svg viewBox="0 0 540 270" preserveAspectRatio="none"><path d="M270 134 Q155 65 114 68 M270 134 Q410 70 425 72 M270 134 Q150 210 106 218 M270 134 Q405 210 435 220"/></svg></div><div class="card-bottom"><h3>Understand how it fits together.</h3><p>Identify entry points, modules and source-backed relationships before you go deeper.</p><a href="/demo/">See the product <span aria-hidden="true">↗</span></a></div></article>
+            <div class="feature-stack"><article class="stack-card" data-reveal><div class="stack-number">01</div><div><div class="eyebrow">KNOW THE SYSTEM</div><h3>Architecture, at a glance.</h3><p>Turn a sprawling repo into a meaningful reading path with links back to source.</p></div><span aria-hidden="true" class="stack-arrow">↗</span></article><article class="stack-card" data-reveal><div class="stack-number">02</div><div><div class="eyebrow">FOLLOW THE LOGIC</div><h3>Trace what calls what.</h3><p>Explore confirmed call relationships and see which connections need further review.</p></div><span aria-hidden="true" class="stack-arrow">↗</span></article><article class="stack-card" data-reveal><div class="stack-number">03</div><div><div class="eyebrow">ASK WITH CONTEXT</div><h3>Answers that show their work.</h3><p>Ask codebase questions and jump from answers into the files behind them.</p></div><span aria-hidden="true" class="stack-arrow">↗</span></article></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="relay-section workflow-section" id="how-it-works" aria-labelledby="workflow-title"><div class="section-container">
+        <div class="workflow-heading" data-reveal><span class="eyebrow section-label"><span class="label-line"></span> 02 / HOW IT WORKS</span><h2 id="workflow-title">From URL to<br><em>understanding.</em></h2><p>One connected workflow. Four clear steps.</p></div>
+        <div class="workflow-grid"><article class="workflow-step" data-reveal><span class="step-index">01 / CONNECT</span><div class="step-art"><span class="url-pill"><span class="url-dot"></span> github.com/pallets/flask</span></div><h3>Choose a repository.</h3><p>Paste a public GitHub URL to begin.</p></article><article class="workflow-step" data-reveal><span class="step-index">02 / COLLECT</span><div class="step-art"><span class="mini-file">README.md</span><span class="mini-file">app.py</span><span class="mini-file">pyproject.toml</span></div><h3>Find the relevant files.</h3><p>RepoLens selects code and metadata to explore.</p></article><article class="workflow-step" data-reveal><span class="step-index">03 / CONNECT</span><div class="step-art"><span class="step-core">✳</span><span class="step-path"></span></div><h3>Map the evidence.</h3><p>Understand structure, citations and uncertainty.</p></article><article class="workflow-step" data-reveal><span class="step-index">04 / EXPLORE</span><div class="step-art"><span class="answer-card"><i></i><i></i><i></i><b>↗ source</b></span></div><h3>Go further.</h3><p>Review the report, ask questions and trace flows.</p></article></div>
+      </div></section>
+
+      <section class="relay-section dashboard-showcase" aria-labelledby="showcase-title"><div class="section-container"><div class="showcase-top" data-reveal><span class="eyebrow section-label"><span class="label-line"></span> 03 / IN PRACTICE</span><h2 id="showcase-title">Everything in<br><em>one clear view.</em></h2><p>Move between analysis, source evidence, security checks and your team's next steps without losing the thread.</p></div>
+        <div class="showcase-window" data-reveal aria-label="Illustrative RepoLens dashboard view"><div class="showcase-sidebar"><div class="showcase-logo">⧉ <span>RepoLens</span></div><div class="showcase-nav is-on">◫ <span>Overview</span></div><div class="showcase-nav">⌘ <span>Codebase</span></div><div class="showcase-nav">⇄ <span>Code flow</span></div><div class="showcase-nav">◈ <span>Evidence</span></div><div class="showcase-nav">☷ <span>Checklists</span></div><div class="showcase-bottom">● SYSTEM READY</div></div><div class="showcase-main"><div class="showcase-topbar"><span>WORKSPACE <span class="showcase-breadcrumb">/ ANALYSIS</span></span><span>REPOSITORY VIEW <span class="blue-dot">●</span></span></div><h3>Get the full picture.</h3><p>Architecture, evidence and next steps—kept in context.</p><div class="showcase-metrics"><div><span>REPOSITORY</span><strong>pallets / flask</strong></div><div><span>LANGUAGE</span><strong>Python</strong></div><div><span>MODE</span><strong>Evidence first</strong></div></div><div class="showcase-charts"><div class="chart-card"><div class="chart-card-title">SOURCE OVERVIEW <span>↗</span></div><div class="fake-chart"><div class="fake-spark"></div><div class="chart-ranges"><i style="--bar:.35"></i><i style="--bar:.65"></i><i style="--bar:.45"></i><i style="--bar:.78"></i><i style="--bar:.53"></i><i style="--bar:.92"></i><i style="--bar:.70"></i><i style="--bar:.86"></i><i style="--bar:.58"></i><i style="--bar:.95"></i><i style="--bar:.8"></i><i style="--bar:.93"></i></div></div><span class="showcase-disclaimer">Illustrative dashboard preview</span></div><div class="chart-card side-chart"><div class="chart-card-title">EXPLORE NEXT <span>↗</span></div><div class="next-row"><b>01</b><span>Read application entry</span><i>↗</i></div><div class="next-row"><b>02</b><span>Trace request handlers</span><i>↗</i></div><div class="next-row"><b>03</b><span>Review cited evidence</span><i>↗</i></div></div></div></div></div>
+      </div></section>
+
+      <section class="relay-section signal-section" aria-labelledby="signal-title"><div class="section-container"><div class="signal-top" data-reveal><span class="eyebrow section-label"><span class="label-line"></span> 04 / BUILT FOR CONFIDENCE</span><h2 id="signal-title">More signal.<br><em>Less noise.</em></h2><p>Powerful enough to help you navigate a large codebase. Careful enough to tell you when the evidence isn't there.</p></div><div class="signal-grid"><article data-reveal><span class="signal-icon">↗</span><h3>Source-linked</h3><p>Navigate from the explanation to the files it was grounded in.</p></article><article data-reveal><span class="signal-icon">◎</span><h3>Uncertainty made visible</h3><p>Unconfirmed connections are labelled for human review.</p></article><article data-reveal><span class="signal-icon">◷</span><h3>Built for continued work</h3><p>Save reports, return to conversations and pick up your exploration.</p></article></div></div></section>
+
+      <section class="relay-section closing-section" aria-labelledby="closing-title"><div class="section-container"><div class="closing-card" data-reveal><div class="closing-waves" aria-hidden="true"></div><span class="eyebrow">YOUR NEXT REPOSITORY STARTS HERE</span><div class="closing-row"><div><h2 id="closing-title">Get to the part<br><em>that matters.</em></h2><p>Explore a repository. Follow the evidence. Understand what to do next.</p></div><div class="closing-action"><a class="button relay-primary" href="/signup/">Get started <span aria-hidden="true">↗</span></a><a href="/gallery/">Browse the public gallery <span aria-hidden="true">↗</span></a></div></div></div></div></section>
+    </main>
+
+    <footer class="landing-footer"><div class="section-container"><div class="footer-main"><div><a class="brand landing-brand" href="/" aria-label="RepoLens home"><span class="brand-glyph" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none"><path d="M22 3 40 13 22 23 4 13 22 3Z"/><path d="m6 22 16 9 16-9"/><path d="m6 31 16 9 16-9"/></svg></span><span>Repo<span class="brand-tone">Lens</span></span></a><p>Find your way into any codebase.</p></div><div class="footer-columns"><div><span>PRODUCT</span><a href="/docs/">Documentation</a><a href="/demo/">Demo</a><a href="/examples/">Examples</a></div><div><span>EXPLORE</span><a href="/gallery/">Public gallery</a><a href="/pricing/">Access</a><a href="/blog/">Blog</a></div><div><span>ACCOUNT</span><a href="/login/">Log in</a><a href="/signup/">Get started</a><a href="/dashboard/">Workspace</a></div></div></div><div class="footer-end"><span>© RepoLens · Made for curious developers.</span><span data-repository-footer></span><a href="/reports/REPORT_SOURCE_REVIEW.md">Source-review notes ↗</a></div></div></footer>
+  </div>
+</body>
+</html>

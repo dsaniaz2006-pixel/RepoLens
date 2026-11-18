@@ -1,0 +1,78 @@
+{
+  "python_suite": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "frontend_unit": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "frontend_build": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "browser_e2e": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "backend_http": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "github_action": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "oauth_real_users": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "authorization_csrf": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "rag_live": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "provider_gemini": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "provider_ollama": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "postgres_migration_rollback": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "backup_restore": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "worker_restart": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "repo_cross_language": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "production_https": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "gallery_publication": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "mobile_accessibility": {
+    "status": "BLOCKED",
+    "evidence": ""
+  },
+  "end_to_end_journey": {
+    "status": "BLOCKED",
+    "evidence": ""
+  }
+}

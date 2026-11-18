@@ -1,0 +1,44 @@
+name: RepoLens PR impact
+description: Generate an evidence-linked pull-request impact report without executing PR code.
+inputs:
+  repository-url:
+    description: Public GitHub repository HTTPS URL
+    required: true
+  pr-number:
+    description: Pull request number
+    required: true
+  gemini-api-key:
+    description: Gemini credential from a repository secret
+    required: true
+  github-token:
+    description: GitHub token used only for read-only PR API calls
+    required: true
+outputs:
+  report-path:
+    description: Local Markdown report path; callers decide whether to publish it
+    value: ${{ steps.report.outputs.path }}
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Install RepoLens dependencies
+      shell: bash
+      run: python -m pip install -r "$GITHUB_ACTION_PATH/requirements.txt"
+    - name: Generate impact report
+      id: report
+      shell: bash
+      env:
+        REPOSITORY_URL: ${{ inputs.repository-url }}
+        PR_NUMBER: ${{ inputs.pr-number }}
+        GEMINI_API_KEY: ${{ inputs.gemini-api-key }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        REPOLENS_MODEL_PROVIDER: gemini
+      run: |
+        report_path="$RUNNER_TEMP/repolens-impact-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT.md"
+        PYTHONPATH="$GITHUB_ACTION_PATH${PYTHONPATH:+:$PYTHONPATH}" python -m backend.cli.main "$REPOSITORY_URL" --pr "$PR_NUMBER" --output "$report_path"
+        echo "path=$report_path" >> "$GITHUB_OUTPUT"
+branding:
+  icon: git-pull-request
+  color: green

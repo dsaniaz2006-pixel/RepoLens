@@ -1,0 +1,265 @@
+{
+  "labeled": 12,
+  "unlabeled": 0,
+  "hit_rate_at_k": 0.9166666666666666,
+  "mean_recall_at_k": 0.7916666666666666,
+  "cases": [
+    {
+      "repository": "pallets/flask",
+      "revision": "d086db856be187255b8ec61ef409357393020f32",
+      "question": "Where are routes registered and dispatched?",
+      "status": "EVALUATED",
+      "expected_paths": [
+        "src/flask/sansio/app.py",
+        "src/flask/app.py"
+      ],
+      "retrieved_paths": [
+        "CHANGES.rst",
+        "src/flask/cli.py",
+        "src/flask/sansio/app.py",
+        "tests/test_cli.py"
+      ],
+      "matches": [
+        "src/flask/sansio/app.py"
+      ],
+      "hit_at_k": true,
+      "recall_at_k": 0.5,
+      "evidence_range_overlap": false
+    },
+    {
+      "repository": "pallets/flask",
+      "revision": "d086db856be187255b8ec61ef409357393020f32",
+      "question": "How are application settings loaded and overridden?",
+      "status": "EVALUATED",
+      "expected_paths": [
+        "src/flask/config.py"
+      ],
+      "retrieved_paths": [
+        "src/flask/app.py",
+        "src/flask/cli.py",
+        "src/flask/config.py"
+      ],
+      "matches": [
+        "src/flask/config.py"
+      ],
+      "hit_at_k": true,
+      "recall_at_k": 1.0,
+      "evidence_range_overlap": true
+    },
+    {
+      "repository": "pallets/flask",
+      "revision": "d086db856be187255b8ec61ef409357393020f32",
+      "question": "Where is request context managed?",
+      "status": "EVALUATED",
+      "expected_paths": [
+        "src/flask/ctx.py"
+      ],
+      "retrieved_paths": [
+        "src/flask/app.py",
+        "src/flask/ctx.py",
+        "src/flask/globals.py"
+      ],
+      "matches": [
+        "src/flask/ctx.py"
+      ],
+      "hit_at_k": true,
+      "recall_at_k": 1.0,
+      "evidence_range_overlap": false
+    },
+    {
+      "repository": "pallets/flask",
+      "revision": "d086db856be187255b8ec61ef409357393020f32",
+      "question": "How are sessions created and saved?",
+      "status": "EVALUATED",
+      "expected_paths": [
+        "src/flask/sessions.py"
+      ],
+      "retrieved_paths": [
+        "CHANGES.rst",
+        "src/flask/app.py",
+        "src/flask/sansio/app.py",
+        "src/flask/sessions.py"
+      ],
+      "matches": [
+        "src/flask/sessions.py"
+      ],
+      "hit_at_k": true,
+      "recall_at_k": 1.0,
+      "evidence_range_overlap": false
+    },
+    {
+      "repository": "axios/axios",
+      "revision": "326843a3902d73c9f6af9bad7b55e2412566a251",
+      "question": "Where are request interceptors applied?",
+      "status": "EVALUATED",
+      "expected_paths": [
+        "lib/core/Axios.js"
+      ],
+      "retrieved_paths": [
+        "README.md",
+        "lib/adapters/http.js",
+        "lib/adapters/xhr.js",
+        "lib/core/Axios.js"
+      ],
+      "matches": [
+        "lib/core/Axios.js"
+      ],
+      "hit_at_k": true,
+      "recall_at_k": 1.0,
+      "evidence_range_overlap": true
+    },
+    {
+      "repository": "axios/axios",
+      "revision": "326843a3902d73c9f6af9bad7b55e2412566a251",
+      "question": "How are default configuration and per-request configuration merged?",
+      "status": "EVALUATED",
+      "expected_paths": [
+        "lib/core/Axios.js",
+        "lib/core/mergeConfig.js"
+      ],
+      "retrieved_paths": [
+        "README.md",
+        "lib/adapters/http.js",
+        "lib/core/mergeConfig.js"
+      ],
+      "matches": [
+        "lib/core/mergeConfig.js"
+      ],
+      "hit_at_k": true,
+      "recall_at_k": 0.5,
+      "evidence_range_overlap": true
+    },
+    {
+      "repository": "axios/axios",
+      "revision": "326843a3902d73c9f6af9bad7b55e2412566a251",
+      "question": "How does Axios select a transport adapter?",
+      "status": "EVALUATED",
+      "expected_paths": [
+        "lib/core/dispatchRequest.js",
+        "lib/adapters/adapters.js"
+      ],
+      "retrieved_paths": [
+        "README.md",
+        "lib/adapters/adapters.js",
+        "lib/adapters/http.js"
+      ],
+      "matches": [
+        "lib/adapters/adapters.js"
+      ],
+      "hit_at_k": true,
+      "recall_at_k": 0.5,
+      "evidence_range_overlap": true
+    },
+    {
+      "repository": "axios/axios",
+      "revision": "326843a3902d73c9f6af9bad7b55e2412566a251",
+      "question": "Where is a request cancellation handled?",
+      "status": "EVALUATED",
+      "expected_paths": [
+        "lib/core/dispatchRequest.js"
+      ],
+      "retrieved_paths": [
+        "README.md",
+        "lib/adapters/xhr.js",
+        "lib/cancel/CancelToken.js"
+      ],
+      "matches": [],
+      "hit_at_k": false,
+      "recall_at_k": 0.0,
+      "evidence_range_overlap": false
+    },
+    {
+      "repository": "pallets/markupsafe",
+      "revision": "4e111271b1494995708a9e878a10829b5e10c7ba",
+      "question": "Which function escapes unsafe strings for HTML?",
+      "status": "EVALUATED",
+      "expected_paths": [
+        "src/markupsafe/__init__.py"
+      ],
+      "retrieved_paths": [
+        "CHANGES.rst",
+        "README.md",
+        "docs/html.rst",
+        "docs/index.rst",
+        "src/markupsafe/__init__.py"
+      ],
+      "matches": [
+        "src/markupsafe/__init__.py"
+      ],
+      "hit_at_k": true,
+      "recall_at_k": 1.0,
+      "evidence_range_overlap": true
+    },
+    {
+      "repository": "pallets/markupsafe",
+      "revision": "4e111271b1494995708a9e878a10829b5e10c7ba",
+      "question": "How does the Markup type preserve safe markup?",
+      "status": "EVALUATED",
+      "expected_paths": [
+        "src/markupsafe/__init__.py"
+      ],
+      "retrieved_paths": [
+        "README.md",
+        "docs/escaping.rst",
+        "src/markupsafe/__init__.py",
+        "tests/test_markupsafe.py"
+      ],
+      "matches": [
+        "src/markupsafe/__init__.py"
+      ],
+      "hit_at_k": true,
+      "recall_at_k": 1.0,
+      "evidence_range_overlap": true
+    },
+    {
+      "repository": "pallets/markupsafe",
+      "revision": "4e111271b1494995708a9e878a10829b5e10c7ba",
+      "question": "How is the __html__ protocol handled?",
+      "status": "EVALUATED",
+      "expected_paths": [
+        "src/markupsafe/__init__.py"
+      ],
+      "retrieved_paths": [
+        "docs/formatting.rst",
+        "docs/html.rst",
+        "src/markupsafe/__init__.py",
+        "tests/test_exception_custom_html.py"
+      ],
+      "matches": [
+        "src/markupsafe/__init__.py"
+      ],
+      "hit_at_k": true,
+      "recall_at_k": 1.0,
+      "evidence_range_overlap": true
+    },
+    {
+      "repository": "pallets/markupsafe",
+      "revision": "4e111271b1494995708a9e878a10829b5e10c7ba",
+      "question": "Which tests verify escaping and concatenation?",
+      "status": "EVALUATED",
+      "expected_paths": [
+        "tests/test_markupsafe.py"
+      ],
+      "retrieved_paths": [
+        "docs/escaping.rst",
+        "docs/html.rst",
+        "tests/test_leak.py",
+        "tests/test_markupsafe.py"
+      ],
+      "matches": [
+        "tests/test_markupsafe.py"
+      ],
+      "hit_at_k": true,
+      "recall_at_k": 1.0,
+      "evidence_range_overlap": false
+    }
+  ],
+  "mode": "cached_vectors_only",
+  "fresh_provider_calls": false,
+  "answer_correctness_evaluated": false,
+  "revisions": {
+    "pallets/flask": "d086db856be187255b8ec61ef409357393020f32",
+    "axios/axios": "326843a3902d73c9f6af9bad7b55e2412566a251",
+    "pallets/markupsafe": "4e111271b1494995708a9e878a10829b5e10c7ba"
+  }
+}

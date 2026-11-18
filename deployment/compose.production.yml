@@ -1,0 +1,89 @@
+# Phase 11 single-instance HTTPS deployment. Use a publicly resolvable domain.
+# Run from repository root: docker compose --env-file .env -f deployment/compose.production.yml up -d --build
+# Do not use the local .env.example credentials. See docs/PHASE_11_OPERATIONS.md.
+services:
+  database:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: repolens
+      POSTGRES_DB: repolens
+      POSTGRES_PASSWORD: ${REPOLENS_DB_PASSWORD:?Provide a real database password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U repolens -d repolens"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [private]
+
+  app:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      REPOLENS_ENV: production
+      REPOLENS_BASE_URL: https://${REPOLENS_DOMAIN:?Provide public domain}
+      REPOLENS_SESSION_SECRET: ${REPOLENS_SESSION_SECRET:?Provide >=32 random characters}
+      REPOLENS_AUTH_DATABASE_URL: ${REPOLENS_AUTH_DATABASE_URL:?Provide PostgreSQL URL with database host}
+      REPOLENS_DATABASE_URL: ${REPOLENS_DATABASE_URL:?Provide PostgreSQL URL with database host}
+      REPOLENS_AUTH_DIR: /data/auth
+      REPOLENS_CHROMA_PATH: /data/chroma
+      REPOLENS_EMBED_CACHE_DIR: /data/embedding-cache
+      REPOLENS_INDEX_JOBS_DB: /data/auth/index_jobs.sqlite3
+      REPOLENS_REPORT_DIR: /data/reports
+      REPOLENS_FRESHNESS_SCHEDULER: internal  # One app instance only. Use external for multiple replicas.
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET:-}
+      REPOLENS_MODEL_PROVIDER: ${REPOLENS_MODEL_PROVIDER:-gemini}
+      OLLAMA_URL: ${OLLAMA_URL:-http://127.0.0.1:11434}
+    volumes:
+      - repolens_state:/data
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,size=256m
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import os,urllib.parse,urllib.request; host=urllib.parse.urlsplit(os.environ['REPOLENS_BASE_URL']).netloc; req=urllib.request.Request('http://127.0.0.1:8000/api/health',headers={'Host':host}); urllib.request.urlopen(req,timeout=5).close()\""]
+      interval: 30s
+      timeout: 8s
+      retries: 4
+      start_period: 45s
+    networks: [private]
+
+  https:
+    image: caddy:2
+    restart: unless-stopped
+    environment:
+      REPOLENS_DOMAIN: ${REPOLENS_DOMAIN:?Provide public domain}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    depends_on:
+      app:
+        condition: service_healthy
+    networks: [private]
+
+networks:
+  private:
+volumes:
+  postgres_data:
+  repolens_state:
+  caddy_data:
+  caddy_config:

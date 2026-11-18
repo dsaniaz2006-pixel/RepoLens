@@ -1,0 +1,11 @@
+# GitHub Action installation and release
+
+The repository-root `action.yml` is a reusable composite action. The bundled `.github/workflows/repolens-pr.yml` assumes RepoLens source and requirements.txt live at the repository root. Do not copy that workflow unchanged into an unrelated application: it would install that application's requirements and cannot find RepoLens main.py.
+
+For another repository, reference the separately hosted RepoLens action with `uses: YOUR_OWNER/YOUR_REPOLENS_REPO@REVIEWED_COMMIT_SHA`; supply repository-url, pr-number, gemini-api-key and github-token inputs. Use `pull_request`, permissions `contents: read` and `pull-requests: write`, and the bundled same-repository/non-Dependabot condition. The composite action requires no checkout of the application PR. Do not use pull_request_target to execute contributor code or expose secrets to forks.
+
+Copy the marked-comment github-script step from the bundled workflow, reading the action's `steps.<action-id>.outputs.report-path` instead of comment.md. It paginates comments and updates the existing bot comment beginning `<!-- repolens-impact -->`. Fork and Dependabot PRs are intentionally skipped because provider secrets are unavailable/untrusted; report the skipped check explicitly to contributors.
+
+Acceptance: configure GEMINI_API_KEY as a repository secret, create a same-repository test PR, inspect the Actions log and generated evidence-limited comment. Push another commit and verify the same comment ID is updated. Confirm the analysis never checks out/runs PR-head code. Inspect small/large diffs and failures. Record workflow URL, run ID, commit and comment URL. None of those live actions was performed for this delivery.
+
+Release: host reviewed source in your repository with action.yml at root, choose semantic version (e.g. v1.1.0), run Python/frontend/real-PR checks, create release notes with explicit limits, tag the reviewed commit, and publish a GitHub release. Use the GitHub release UI's Marketplace option after validating required metadata and repository eligibility. Optionally move a major-version tag after acceptance; consumers should prefer immutable commit pins. Keep provider credentials only in GitHub Secrets. This ZIP does not constitute Marketplace publication.

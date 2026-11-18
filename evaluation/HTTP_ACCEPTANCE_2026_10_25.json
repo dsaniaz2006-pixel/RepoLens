@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "production_build_http": true,
+  "restart_persistence": true,
+  "synthetic_accounts": 2,
+  "oauth_tested": false,
+  "browser_tested": false,
+  "checks": [
+    "anonymous gallery and CTA",
+    "dashboard login gating",
+    "invitation preview nonmutating",
+    "join and replay",
+    "member invitation denied",
+    "assignment owner/assignee restrictions",
+    "progress persisted after restart",
+    "public share revoke"
+  ]
+}

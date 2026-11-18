@@ -1,0 +1,61 @@
+RepoLens verification — 2026-10-25
+
+BASELINE
+........................................................................ [ 28%]
+......................................................s................. [ 56%]
+........................................................................ [ 85%]
+.....................................                                    [100%]
+=============================== warnings summary ===============================
+tests/test_auth.py:12
+  /workspace/scratch/81a803e3d2b7/RepoLens/tests/test_auth.py:12: AuthlibDeprecationWarning: authlib.jose module is deprecated, please use joserfc instead.
+  It will be compatible before version 2.0.0.
+    from authlib.jose import JsonWebKey, jwt
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+252 passed, 1 skipped, 1 warning in 5.49s
+
+FINAL PYTHON
+........................................................................ [ 26%]
+........................................................s............... [ 53%]
+........................................................................ [ 80%]
+.....................................................                    [100%]
+=============================== warnings summary ===============================
+tests/test_auth.py:12
+  /workspace/scratch/81a803e3d2b7/RepoLens/tests/test_auth.py:12: AuthlibDeprecationWarning: authlib.jose module is deprecated, please use joserfc instead.
+  It will be compatible before version 2.0.0.
+    from authlib.jose import JsonWebKey, jwt
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+268 passed, 1 skipped, 1 warning in 5.78s
+
+FRONTEND
+17 tests passed, 0 failed.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> repolens-dashboard@1.0.0 build
+> vite build
+
+vite v6.4.4 building for production...
+transforming...
+✓ 1586 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/dashboard/index.html                         0.58 kB │ gzip:  0.37 kB
+dist/gallery/index.html                           2.75 kB │ gzip:  0.80 kB
+dist/login/index.html                             3.46 kB │ gzip:  1.62 kB
+dist/signup/index.html                            3.53 kB │ gzip:  1.64 kB
+dist/index.html                                   7.70 kB │ gzip:  2.67 kB
+dist/assets/dashboard-9-j-Lt7J.css               11.09 kB │ gzip:  3.10 kB
+dist/assets/modulepreload-polyfill-B5Qt9EMX.js    0.71 kB │ gzip:  0.40 kB
+dist/assets/app-koQfI5ru.js                       2.83 kB │ gzip:  1.32 kB
+dist/assets/dashboard-CFc7UmUs.js               202.13 kB │ gzip: 63.00 kB
+✓ built in 2.27s
+
+OTHER CHECKS
+Update preview/apply on a temporary copy: passed; .env and .venv preserved; backup created.
+Real Uvicorn production HTTP and restart persistence: passed (see HTTP_ACCEPTANCE_2026_10_25.json).
+Cached-vector retrieval: 11/12 hit@5; 79.17% mean expected-file recall@5. Axios cancellation miss retained.
+Browser install failed: Chromium archive download invalid/zero bytes. Browser tests NOT RUN.
+PostgreSQL integration SKIPPED: no dedicated service configured.
+Live OAuth, Gemini, Ollama, PR Actions and HTTPS deployment NOT RUN.
+One Authlib deprecation warning; no remaining Python test failures.

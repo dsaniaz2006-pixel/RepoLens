@@ -1,0 +1,72 @@
+/* RepoLens site palette, used by public gallery and documentation pages.
+   Mirrors the cinematic landing's charcoal, graphite surfaces and restrained blue. */
+:root{
+ color-scheme:dark;
+ --paper:#121416;--ink:#f5f5f3;--muted:#abb7c1;--line:#343d44;
+ --green:#87bce2;--lime:#88bee4;--white:#222528;
+ --rl-card:#222528;--rl-card-alt:#252b30;--rl-nav:#171b1e;
+ --rl-action:#28547a;--rl-action-hover:#356e9a;--rl-link:#9dc9e9;
+ --rl-border:#343d44;--rl-code:#141d25;--rl-foreground:#f5f5f3;
+}
+html[data-repolens-theme="light"]{
+ color-scheme:light;
+ --paper:#eef2f4;--ink:#202e39;--muted:#506577;--line:#ccd7df;
+ --green:#28547a;--lime:#28547a;--white:#fff;
+ --rl-card:#fff;--rl-card-alt:#e4edf3;--rl-nav:#e8eef2;
+ --rl-action:#28547a;--rl-action-hover:#356e9a;--rl-link:#225f8b;
+ --rl-border:#cbd7df;--rl-code:#e8eef3;--rl-foreground:#202e39;
+}
+body{background:var(--paper);color:var(--ink);transition:background-color .24s,color .24s}
+::selection{background:#568db5;color:#fff}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid #88bee4;outline-offset:3px}
+.header,.top{border-color:var(--rl-border);background:var(--paper)}
+.header .nav a,.top nav a{color:var(--muted)}
+.header .nav a:hover,.top nav a:hover{color:var(--rl-link)}
+.eyebrow,.feature-icon,.feature-top,.mono-label,.repo-icon,.repo-icon *,a.text-link,.report-link .arrow{color:var(--rl-link)}
+.eyebrow .dot{background:#6aa9d6}
+.button,.cta{background:linear-gradient(115deg,var(--rl-action),var(--rl-action-hover));color:#fff;border-color:#527d9e}
+.button:hover,.cta:hover{background:#356e9a;color:#fff;filter:brightness(1.07)}
+.feature,.report-window,.repo-badge,.panel,.metric-strip div,.catalog article,.report{background:var(--rl-card);border-color:var(--rl-border);color:var(--ink)}
+.feature:hover,.catalog article:hover,.panel:hover{border-color:#567b98}
+.pipeline-section,.panel.spotlight,.limits,.report-note,.tiny-tag,.preview-notice,.product-links{background:var(--rl-card-alt);border-color:var(--rl-border);color:var(--ink)}
+.window-bar,.map-card,.report-body pre,.panel pre{background:var(--rl-code);color:var(--ink);border-color:var(--rl-border)}
+.report-heading,.reading-list,.report-bottom,.summary>*,.report-body h2,.report-link,.footer,footer{border-color:var(--rl-border)}
+.repo-badge{color:var(--rl-link)}
+.report-note,.limits p,.stage p,.reading-list li,.reading-list small,.report-bottom,.report-link small,.feature p,.report-body p,.report-body li,.catalog article p,.product-section p,.product-section li{color:var(--muted)}
+.report-note{border-left:2px solid #6395b7}
+.tiny-tag,.review-status{color:var(--rl-link);border-color:var(--rl-border)}
+.report-content code,.reading-list code{color:var(--rl-link)}
+.product-nav a[aria-current="page"]{text-decoration-color:#7baed4}
+.panel a:not(.button),.report-link:hover strong,.card-content a:hover{color:var(--rl-link)}
+.metric-strip div{box-shadow:0 5px 20px #00000012}
+.actions button{background:var(--rl-card-alt);border-color:var(--rl-border);color:var(--ink)}
+.actions button:hover{border-color:#6a9cbf;background:var(--rl-card)}
+.summary>*{border-color:var(--rl-border);color:var(--muted)}.summary strong{color:var(--ink)}
+.repo-icon{background:var(--rl-card-alt)}
+.report-body pre{overflow:auto}
+.review-status.reviewed{color:#a3d5bb;border-color:#417d63}
+.review-status.unreviewed{color:#d4b88b;border-color:#877453}
+.card-content a{color:var(--ink)}
+/* The original public CSS uses several literal light backgrounds: override them. */
+.login-page{background:var(--paper)}.login-story{background:var(--rl-card);color:var(--ink)}
+.github-button,.field input,.provider-button{background:var(--rl-card);color:var(--ink);border-color:var(--rl-border)}
+.github-button:disabled,.provider-button:disabled,.auth-status{background:var(--rl-card-alt);color:var(--muted)}
+.stage-num,.map-item:before{border-color:#587c97}
+/* Small site-level switcher; dashboard uses the richer React variant. */
+.rl-public-theme-switch{width:66px;height:35px;display:inline-flex;align-items:center;flex:0 0 auto;position:relative;padding:3px;margin:0 0 0 5px;border-radius:999px;border:1px solid #53697a;background:radial-gradient(ellipse at top left,#293c4a,#12191f);box-shadow:inset 2px 3px 6px #0008,0 4px 12px #0002;cursor:pointer;vertical-align:middle;transition:background .24s}
+.rl-public-theme-switch svg{position:absolute;width:15px;height:15px;stroke:var(--rl-link);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.rl-public-theme-switch .rl-sun{left:10px}.rl-public-theme-switch .rl-moon{right:10px}
+.rl-public-theme-knob{position:absolute;z-index:1;left:3px;top:3px;width:27px;height:27px;border:1px solid #8eb1c84d;border-radius:50%;background:linear-gradient(145deg,#668ca5,#28547a);box-shadow:inset 2px 1px 3px #ffffff44,0 4px 8px #0008;transform:translateX(31px);transition:transform .42s cubic-bezier(.23,1.35,.42,1),background .24s}
+html[data-repolens-theme="light"] .rl-public-theme-switch{background:radial-gradient(ellipse at top left,#fff,#dbe5ec);border-color:#a7bfcd;box-shadow:inset 2px 3px 6px #8fa8b655,0 4px 12px #0001}
+html[data-repolens-theme="light"] .rl-public-theme-knob{background:linear-gradient(145deg,#fff,#cbdbe5);transform:translateX(0)}
+.rl-public-theme-switch.rl-burst .rl-public-theme-knob:after{content:"";position:absolute;inset:5px;border-radius:50%;border:2px solid #8ebbd9;animation:rl-public-burst .5s ease-out both;pointer-events:none}
+@keyframes rl-public-burst{0%{transform:scale(.7);opacity:.75}100%{transform:scale(2.8);opacity:0}}
+@media(max-width:640px){.rl-public-theme-switch{margin-left:0}}
+@media(prefers-reduced-motion:reduce){body,.rl-public-theme-switch,.rl-public-theme-knob{transition:none!important}.rl-public-theme-switch.rl-burst .rl-public-theme-knob:after{animation:none}}
+/* The gallery's navigation gains a switcher, so it must wrap on narrow phones. */
+@media(max-width:650px){
+ .top{flex-wrap:wrap;align-items:flex-start}
+ .top nav{display:flex;flex-wrap:wrap;width:100%;justify-content:flex-start;gap:9px 14px;align-items:center}
+ .top nav a{white-space:nowrap}
+ .top .rl-public-theme-switch{margin-left:auto}
+}

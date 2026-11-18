@@ -1,0 +1,56 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS/editor clutter
+.DS_Store
+.vscode/
+.idea/
+
+# Generated output
+reports/
+
+# Packaging/build output
+build/
+dist/
+*.egg-info/
+.repolens_chroma/
+*.sqlite3
+frontend/node_modules/
+frontend/dist/
+
+# Browser test output
+frontend/test-results/
+frontend/playwright-report/
+
+# Private OAuth identities, sessions and local signing key
+.repolens_auth/
+*.key
+.repolens_cache/
+.repolens_gallery/
+.repolens_logs/
+.repolens_backups/
+
+# Locally issued HTTPS certificates; never commit private keys or certificates
+.certs/
+
+# Local pre-deployment backups
+.repolens-predeploy-source-backups/
+
+# macOS ZIP metadata
+__MACOSX/
+._*
+
+# Local archives
+*.zip
