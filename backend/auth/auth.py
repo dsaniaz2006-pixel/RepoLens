@@ -13,14 +13,12 @@ import time
 from urllib.parse import urlsplit
 
 from authlib.integrations.starlette_client import OAuth
-from chromadb.app import app
 from fastapi import APIRouter, HTTPException, Request, Body
 from pydantic import BaseModel, Field
 from fastapi.responses import JSONResponse, RedirectResponse
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 from backend.security.controls import validate_production_settings, audit_route
-from tests.test_section4_tdd import manager
 
 COOKIE = 'repolens_session'
 SESSION_SECONDS = 7 * 24 * 60 * 60
@@ -430,23 +428,14 @@ def install_auth(app):
     app.add_middleware(SessionMiddleware, secret_key=manager.session_secret,
                        session_cookie='repolens_oauth', max_age=600, same_site='lax', https_only=manager.secure)
     if os.getenv('REPOLENS_ENV') == 'production':
-        # Reject host-header spoofing. Reverse proxies must preserve the public Host.
-        
-host = urlsplit(manager.base_url).hostname
-allowed_hosts = [host]
-
-render_host = os.getenv("RENDER_EXTERNAL_HOSTNAME", "").strip().lower()
-
-if render_host.endswith(".onrender.com"):
-    if render_host not in allowed_hosts:
-        allowed_hosts.append(render_host)
-
-app.add_middleware(
-    TrustedHostMiddleware,
-    allowed_hosts=allowed_hosts,
-    www_redirect=False,
-)
-
+        # Keep strict host validation for both the public Vercel site and
+        # the original Render hostname used by the Vercel API proxy.
+        public_host = urlsplit(manager.base_url).hostname
+        allowed_hosts = [public_host]
+        render_host = os.getenv('RENDER_EXTERNAL_HOSTNAME', '').strip().lower()
+        if render_host.endswith('.onrender.com') and render_host not in allowed_hosts:
+            allowed_hosts.append(render_host)
+        app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_hosts, www_redirect=False)
 
     def login_client_ip(request):
         # Do not trust client-supplied X-Forwarded-For unless the immediate
