@@ -22,7 +22,7 @@ def test_postgres_concurrent_quota_and_migrations(tmp_path):
     url=make_url(root).update_query_dict({'options':'-csearch_path='+schema}).render_as_string(hide_password=False)
     try:
         state=upgrade_databases(url,url)
-        assert state['auth']['current']=='auth_0004'
+        assert state['auth']['current']=='auth_0005'
         assert state['auth']['up_to_date'] and state['app']['up_to_date']
         mgr=AuthManager(directory=tmp_path/'auth',environ={'REPOLENS_AUTH_DATABASE_URL':url})
         uid=mgr.upsert_user('github','concurrent-user','Alice')['id']
