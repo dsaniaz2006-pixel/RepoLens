@@ -1,0 +1,13 @@
+
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://repolens-vlkw.onrender.com/api/:path*"
+    },
+    {
+      "source": "/join",
+      "destination": "https://repolens-vlkw.onrender.com/join"
+    }
+  ]
+}
