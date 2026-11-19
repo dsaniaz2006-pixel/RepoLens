@@ -7,7 +7,7 @@ import Conversations from './features/conversations/Conversations.jsx';
 import PublicChecklist from './features/checklist/PublicChecklist.jsx';
 import React, {useEffect,useLayoutEffect,useState,useRef,useCallback} from 'react';
 import {createRoot} from 'react-dom/client';
-import {Github, Search, House, Globe2, Clock3, Settings, Sparkles, FileText, FolderTree, BookOpen, ArrowRight, Download, Link as LinkIcon, AlertCircle, Layers, MessageSquare, CheckCircle2, Menu, X} from 'lucide-react';
+import {Github, Search, House, Globe2, Clock3, Settings, Sparkles, FileText, FolderTree, BookOpen, ArrowRight, Download, Link as LinkIcon, AlertCircle, Layers, MessageSquare, CheckCircle2, Menu} from 'lucide-react';
 import './style.css';
 import './theme-switch.css';
 import CinematicThemeSwitch from './components/layout/CinematicThemeSwitch.jsx';
@@ -78,7 +78,7 @@ function App({user}){
   document.body.style.overflow='hidden';
   window.addEventListener('keydown',onEscape);
   window.requestAnimationFrame(()=>{
-   document.querySelector('.rl-mobile-close')?.focus();
+   document.querySelector('.app.mobile-open .side nav button')?.focus({preventScroll:true});
   });
   return ()=>{
    document.body.style.overflow=oldOverflow;
@@ -113,11 +113,6 @@ function App({user}){
   aria-label="Workspace navigation drawer"
   role={mobileOpen?'dialog':undefined}
   aria-modal={mobileOpen?'true':undefined}>
- <button type="button" className="rl-mobile-close"
-  aria-label="Close navigation"
-  onClick={()=>setMobileOpen(false)}>
-  <X size={23}/>
- </button>
  <div className="brand"><img className="brand-logo" src="/favicon-v2.svg?v=20" alt="" width="40" height="40"/><div><h2>RepoLens</h2><small>Understand any GitHub repo with AI</small></div></div><nav ref={navRef} aria-label="Workspace navigation"><span className="rl-nav-water" aria-hidden="true"/>{[['Home',House],['Analyze Repo',Search],['Knowledge Hub',BookOpen],['Conversations',MessageSquare],['Past Analyses',Clock3],['Settings',Settings]].map(([n,Icon])=><button key={n} className={page===n?'nav active':'nav'} aria-current={page===n?'page':undefined} onClick={()=>active(n)}><Icon size={21}/>{n}</button>)}<button className={page==='Public Gallery'?'nav gallery-nav active':'nav gallery-nav'} type="button" aria-current={page==='Public Gallery'?'page':undefined} onClick={()=>active('Public Gallery')}><Globe2 size={21}/>Public Gallery</button></nav>
  <div className="rl-mobile-tools">
   <div className="rl-mobile-account">
