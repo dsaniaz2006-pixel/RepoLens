@@ -13,7 +13,7 @@ const REVEAL_SELECTOR = [
 export function useTextReveal(containerRef,page) {
  useEffect(()=>{
   const root=containerRef.current;
-  if(!root || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window))return;
+  if(!root || window.matchMedia?.('(prefers-reduced-motion: reduce), (pointer: coarse)').matches || !('IntersectionObserver' in window))return;
   const seen=new Set();
   let order=0;
   const observer=new IntersectionObserver(entries=>{

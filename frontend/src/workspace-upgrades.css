@@ -89,3 +89,223 @@
 @media(prefers-reduced-motion:reduce){
  .app .content.rl-workspace-content {animation:none!important;transform:none!important}
 }
+
+
+/* RepoLens mobile navigation v1 — desktop stays unchanged. */
+.rl-mobile-topbar,
+.rl-mobile-menu,
+.rl-mobile-close,
+.rl-mobile-tools,
+.rl-mobile-backdrop {display:none}
+
+@media (max-width:700px) {
+ .app {
+  display:block;
+  width:100%;
+  min-width:0;
+  overflow-x:clip;
+ }
+ .app .rl-mobile-topbar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:180;
+  height:64px;
+  padding:0 16px;
+  background:var(--side);
+  border-bottom:1px solid var(--border);
+ }
+ .rl-mobile-identity {
+  display:flex;
+  gap:10px;
+  align-items:center;
+  font-size:21px;
+  font-weight:750;
+  letter-spacing:-.6px;
+  color:var(--text);
+ }
+ .rl-mobile-identity img {flex-shrink:0}
+ .app .rl-mobile-menu,
+ .app .rl-mobile-close {
+  display:grid;
+  place-items:center;
+  width:44px;
+  height:44px;
+  padding:0;
+  color:var(--text);
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:12px;
+ }
+ .app .rl-mobile-close {
+  position:absolute;
+  top:18px;
+  right:15px;
+ }
+ .app .rl-mobile-backdrop {
+  display:block;
+  position:fixed;
+  inset:0;
+  z-index:190;
+  border:0;
+  border-radius:0;
+  background:rgba(0,0,0,.65);
+ }
+ .app .side {
+  display:flex;
+  position:fixed !important;
+  top:0;
+  bottom:0;
+  left:0;
+  right:auto;
+  z-index:200;
+  width:min(340px,88vw) !important;
+  height:100dvh;
+  padding:78px 16px 22px;
+  background:var(--side);
+  border-right:1px solid var(--border);
+  box-shadow:16px 0 40px rgba(0,0,0,.18);
+  overflow-y:auto;
+  overflow-x:hidden;
+  transform:translateX(-105%);
+  visibility:hidden;
+  pointer-events:none;
+  transition:transform .24s ease,visibility .24s;
+ }
+ .app.mobile-open .side {
+  transform:translateX(0);
+  visibility:visible;
+  pointer-events:auto;
+ }
+ .app .side .brand {
+  padding:0 4px 25px;
+ }
+ .app .side .brand small {
+  display:block;
+ }
+ .app .side nav {
+  display:flex !important;
+  flex-direction:column;
+  align-items:stretch;
+  width:100%;
+  gap:6px;
+  overflow:visible !important;
+ }
+ .app .side nav .nav {
+  display:flex;
+  width:100%;
+  min-height:47px;
+  padding:12px 15px;
+  gap:13px;
+  font-size:15px;
+  white-space:normal;
+  flex-shrink:0;
+ }
+ .app .side nav .rl-nav-water {
+  display:none !important;
+ }
+ .app .side nav .nav.active {
+  background:#28547a;
+  border-color:#679fc3;
+  color:#fff;
+  box-shadow:none;
+ }
+ .app.light .side nav .nav.active {
+  background:#d1e4f2;
+  color:#193e5a;
+ }
+ .app .rl-mobile-tools {
+  display:flex;
+  flex-direction:column;
+  margin-top:auto;
+  padding:21px 4px 8px;
+  gap:18px;
+ }
+ .rl-mobile-account {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:var(--text);
+  font-weight:600;
+  overflow-wrap:anywhere;
+ }
+ .rl-mobile-appearance {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  color:var(--text);
+ }
+ .app .rl-mobile-signout {
+  display:flex;
+  justify-content:center;
+  width:100%;
+  min-height:46px;
+ }
+ .app .powered,
+ .app header {
+  display:none !important;
+ }
+ .app main {
+  display:block;
+  width:100%;
+  min-width:0;
+  margin:0;
+ }
+ .app .content {
+  padding:16px 14px 28px;
+  max-width:100%;
+ }
+ .app .home-welcome {
+  padding:16px 2px 24px;
+ }
+ .app .home-stats {
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+ }
+ .app .home-stats .panel {
+  min-width:0;
+  padding:14px;
+ }
+ .app .home-stats strong {
+  font-size:24px;
+ }
+ .app .home-stats .current-repo {
+  grid-column:1/-1;
+ }
+ .app .home-welcome .primary,
+ .app .searchbar button {
+  min-height:48px;
+ }
+ .app .home-grid,
+ .app .columns {
+  grid-template-columns:minmax(0,1fr);
+ }
+ /* Prefer smooth scrolling and interactions on Android/other touch devices. */
+ .app .rl-text-reveal,
+ .app .content.rl-workspace-content {
+  animation:none !important;
+  filter:none !important;
+  transform:none !important;
+ }
+ .app button:not(.rl-theme-switch)::before,
+ .app .rl-liquid-ripple {
+  display:none !important;
+ }
+ .app .nav {
+  transition:none !important;
+ }
+ .rl-welcome-scene {
+  display:none !important;
+ }
+}
+@media (max-width:360px) {
+ .app .content {padding:12px}
+ .app .home-welcome h1 {font-size:25px}
+ .app .rl-mobile-topbar {padding:0 12px}
+}
+@media (max-width:700px) and (prefers-reduced-motion:reduce) {
+ .app .side {transition:none !important}
+}

@@ -4,6 +4,7 @@ import {WELCOME_SCENE_DURATION_MS,WELCOME_REDUCED_DURATION_MS,welcomeMorphProgre
 // concept. Only one animation per browser session; does not block navigation.
 export default function WelcomeScene({user}){
  const [show,setShow]=useState(()=>{
+  if(window.matchMedia?.('(max-width: 700px), (prefers-reduced-motion: reduce)')?.matches)return false;
   try{return !sessionStorage.getItem(`repolens-welcome:v21:${user.id}`)}catch{return false}
  });
  const ref=useRef(null);

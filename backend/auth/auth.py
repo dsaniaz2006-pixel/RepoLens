@@ -355,6 +355,17 @@ class AuthManager:
                 db.execute('DELETE FROM login_attempts WHERE ip_address=?', (ip_address[:45],))
             self.record_audit('auth:login_success', user_id=user_id, ip_address=ip_address, connection=db)
 
+    def is_first_visit(self, user_id):
+        # One successful OAuth login is the user's first login.
+        # This survives browsers, devices and server restarts.
+        with self.connect() as db:
+            row = db.execute(
+                'SELECT COUNT(*) AS visits FROM audit_events '
+                'WHERE user_id=? AND action=?',
+                (user_id, 'auth:login_success')
+            ).fetchone()
+        return int(row['visits']) == 1
+
     def usage_snapshot(self, user_id, *, now=None, limits=None):
         """Per-user UTC usage and limits; no tokens, IPs, or keys are returned."""
         from backend.security.usage_limits import PLAN_LIMITS
@@ -572,7 +583,9 @@ def install_auth(app):
         user = request.app.state.auth.authenticate(request.cookies.get(COOKIE))
         if not user:
             raise HTTPException(401, 'Sign in to continue.')
-        return {'user': {k: v for k, v in user.items() if k != 'csrf'}, 'csrf_token': user['csrf']}
+        safe_user = {k: v for k, v in user.items() if k != 'csrf'}
+        safe_user['first_visit'] = request.app.state.auth.is_first_visit(user['id'])
+        return {'user': safe_user, 'csrf_token': user['csrf']}
 
     @router.get('/keys')
     async def list_keys(request: Request):

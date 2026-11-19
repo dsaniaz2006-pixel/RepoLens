@@ -7,7 +7,7 @@ import Conversations from './features/conversations/Conversations.jsx';
 import PublicChecklist from './features/checklist/PublicChecklist.jsx';
 import React, {useEffect,useLayoutEffect,useState,useRef,useCallback} from 'react';
 import {createRoot} from 'react-dom/client';
-import {Github, Search, House, Globe2, Clock3, Settings, Sparkles, FileText, FolderTree, BookOpen, ArrowRight, Download, Link as LinkIcon, AlertCircle, Layers, MessageSquare, CheckCircle2} from 'lucide-react';
+import {Github, Search, House, Globe2, Clock3, Settings, Sparkles, FileText, FolderTree, BookOpen, ArrowRight, Download, Link as LinkIcon, AlertCircle, Layers, MessageSquare, CheckCircle2, Menu, X} from 'lucide-react';
 import './style.css';
 import './theme-switch.css';
 import CinematicThemeSwitch from './components/layout/CinematicThemeSwitch.jsx';
@@ -25,6 +25,7 @@ const text=(x)=>typeof x==='string'?x:JSON.stringify(x||'');
 
 function App({user}){
  const [page,setPage]=useWorkspaceNavigation('Home');
+ const [mobileOpen,setMobileOpen]=useState(false);
  const [url,setUrl]=useState('https://github.com/pallets/flask'),[report,setReport]=useState(null),[section,setSection]=useState('Overview'),[busy,setBusy]=useState(''),[error,setError]=useState(''),[history,setHistory]=useState([]),[question,setQuestion]=useState(''),[reply,setReply]=useState(null),[interview,setInterview]=useState(null),[contribution,setContribution]=useState(null),[dark,setDark]=useState(()=>{try{return window.localStorage.getItem('repolens-theme')!=='light'}catch{return true}});
  const [notice,setNotice]=useState(''),[progress,setProgress]=useState(''),[elapsed,setElapsed]=useState(0),[config,setConfig]=useState(null);
  useEffect(()=>{
@@ -51,6 +52,7 @@ function App({user}){
  const a=report?.analysis||{},m=report?.metadata||{};const files=(report?.tree||[]).filter(x=>x.type==='blob').slice(0,50);
  const refreshConfig=()=>request('Checking server configuration...',async()=>{setConfig(await getJSON('/api/config-status'))});
  const active=useCallback((name)=>{
+  setMobileOpen(false);
   if(name===page)return;
   setPage(name);
   if(name==='Settings')getJSON('/api/config-status').then(setConfig).catch(e=>setError(e.message));
@@ -63,7 +65,73 @@ function App({user}){
  useTextReveal(contentRef,page);
  const copyLink=async()=>{try{await navigator.clipboard.writeText(reportUrl||window.location.href);setNotice(reportUrl?'Repository link copied.':'Workspace link copied.')}catch{setError('Clipboard access failed. Copy this link manually: '+(reportUrl||window.location.href))}};
  const download=(format)=>request('Preparing download...',async()=>{await downloadReport('/api/report/'+m.full_name+(format==='pdf'?'/pdf':''),m.full_name.replace('/','-')+'-report.'+format);setNotice('Report download started.')});
- return <div ref={appRef} className={dark?'app':'app light'}><WelcomeScene user={user}/><aside className="side"><div className="brand"><img className="brand-logo" src="/favicon-v2.svg?v=20" alt="" width="40" height="40"/><div><h2>RepoLens</h2><small>Understand any GitHub repo with AI</small></div></div><nav ref={navRef} aria-label="Workspace navigation"><span className="rl-nav-water" aria-hidden="true"/>{[['Home',House],['Analyze Repo',Search],['Knowledge Hub',BookOpen],['Conversations',MessageSquare],['Past Analyses',Clock3],['Settings',Settings]].map(([n,Icon])=><button key={n} className={page===n?'nav active':'nav'} aria-current={page===n?'page':undefined} onClick={()=>active(n)}><Icon size={21}/>{n}</button>)}<button className={page==='Public Gallery'?'nav gallery-nav active':'nav gallery-nav'} type="button" aria-current={page==='Public Gallery'?'page':undefined} onClick={()=>active('Public Gallery')}><Globe2 size={21}/>Public Gallery</button></nav><div className="powered">Powered by<br/><span><Github size={22}/> GitHub API</span><span><Sparkles size={22}/> Google Gemini</span></div></aside><main><header><div className="top-right"><CinematicThemeSwitch dark={dark} onToggle={()=>setDark(v=>!v)}/><span className="avatar" title={user.name}>{user.name.slice(0,1).toUpperCase()}</span><button className="outline" disabled={!!busy} onClick={()=>request('Signing out...',async()=>{await api('auth/logout',{});window.location.replace('/login/')})}>Sign out</button></div></header><div key={page} ref={contentRef} className="content rl-workspace-content" role="region" aria-label={`${page} content`}>{page==='Analyze Repo'&&<><section className="hero"><div><h1>Analyze a repository.<br/><em>Explore the evidence.</em></h1><p>Get an AI-powered analysis of the project structure, purpose,<br/> technologies, code flow and more.</p></div><div className="hero-art"><Github size={80}/><ArrowRight size={33}/><FileText size={84}/></div></section>
+ const signOut=()=>request('Signing out...',async()=>{
+  await api('auth/logout',{});
+  window.location.replace('/login/');
+ });
+ useEffect(()=>{
+  if(!mobileOpen)return;
+  const oldOverflow=document.body.style.overflow;
+  const onEscape=(event)=>{
+   if(event.key==='Escape')setMobileOpen(false);
+  };
+  document.body.style.overflow='hidden';
+  window.addEventListener('keydown',onEscape);
+  window.requestAnimationFrame(()=>{
+   document.querySelector('.rl-mobile-close')?.focus();
+  });
+  return ()=>{
+   document.body.style.overflow=oldOverflow;
+   window.removeEventListener('keydown',onEscape);
+  };
+ },[mobileOpen]);
+ useEffect(()=>{
+  const query=window.matchMedia('(max-width:700px)');
+  const update=()=>{if(!query.matches)setMobileOpen(false)};
+  query.addEventListener?.('change',update);
+  return ()=>query.removeEventListener?.('change',update);
+ },[]);
+ return <div ref={appRef} className={(dark?'app':'app light')+(mobileOpen?' mobile-open':'')}>
+ <WelcomeScene user={user}/>
+ <div className="rl-mobile-topbar">
+  <span className="rl-mobile-identity">
+   <img src="/favicon-v2.svg?v=20" alt="" width="34" height="34"/>
+   RepoLens
+  </span>
+  <button type="button" className="rl-mobile-menu"
+   aria-label="Open navigation"
+   aria-expanded={mobileOpen}
+   aria-controls="repolens-mobile-navigation"
+   onClick={()=>setMobileOpen(true)}>
+   <Menu size={25}/>
+  </button>
+ </div>
+ {mobileOpen&&<button type="button" className="rl-mobile-backdrop"
+  aria-label="Close navigation overlay"
+  onClick={()=>setMobileOpen(false)}/>}
+ <aside className="side" id="repolens-mobile-navigation"
+  aria-label="Workspace navigation drawer"
+  role={mobileOpen?'dialog':undefined}
+  aria-modal={mobileOpen?'true':undefined}>
+ <button type="button" className="rl-mobile-close"
+  aria-label="Close navigation"
+  onClick={()=>setMobileOpen(false)}>
+  <X size={23}/>
+ </button>
+ <div className="brand"><img className="brand-logo" src="/favicon-v2.svg?v=20" alt="" width="40" height="40"/><div><h2>RepoLens</h2><small>Understand any GitHub repo with AI</small></div></div><nav ref={navRef} aria-label="Workspace navigation"><span className="rl-nav-water" aria-hidden="true"/>{[['Home',House],['Analyze Repo',Search],['Knowledge Hub',BookOpen],['Conversations',MessageSquare],['Past Analyses',Clock3],['Settings',Settings]].map(([n,Icon])=><button key={n} className={page===n?'nav active':'nav'} aria-current={page===n?'page':undefined} onClick={()=>active(n)}><Icon size={21}/>{n}</button>)}<button className={page==='Public Gallery'?'nav gallery-nav active':'nav gallery-nav'} type="button" aria-current={page==='Public Gallery'?'page':undefined} onClick={()=>active('Public Gallery')}><Globe2 size={21}/>Public Gallery</button></nav>
+ <div className="rl-mobile-tools">
+  <div className="rl-mobile-account">
+   <span className="avatar">{user.name.slice(0,1).toUpperCase()}</span>
+   <span>{user.name}</span>
+  </div>
+  <div className="rl-mobile-appearance">
+   <span>Appearance</span>
+   <CinematicThemeSwitch dark={dark} onToggle={()=>setDark(v=>!v)}/>
+  </div>
+  <button className="outline rl-mobile-signout" type="button"
+   disabled={!!busy} onClick={signOut}>Sign out</button>
+ </div>
+ <div className="powered">Powered by<br/><span><Github size={22}/> GitHub API</span><span><Sparkles size={22}/> Google Gemini</span></div></aside><main><header><div className="top-right"><CinematicThemeSwitch dark={dark} onToggle={()=>setDark(v=>!v)}/><span className="avatar" title={user.name}>{user.name.slice(0,1).toUpperCase()}</span><button className="outline" disabled={!!busy} onClick={signOut}>Sign out</button></div></header><div key={page} ref={contentRef} className="content rl-workspace-content" role="region" aria-label={`${page} content`}>{page==='Analyze Repo'&&<><section className="hero"><div><h1>Analyze a repository.<br/><em>Explore the evidence.</em></h1><p>Get an AI-powered analysis of the project structure, purpose,<br/> technologies, code flow and more.</p></div><div className="hero-art"><Github size={80}/><ArrowRight size={33}/><FileText size={84}/></div></section>
  <div className="searchbar"><LinkIcon/><input aria-label="GitHub URL" value={url} onChange={e=>setUrl(e.target.value)} placeholder="https://github.com/owner/repo"/><button onClick={analyze} disabled={!!busy}><Sparkles size={17}/>{busy==='Analyzing repository...'?'Analyzing…':'Analyze Repository'}</button></div></>}
  {busy&&<div className="operation-status" role="status" aria-live="polite"><div><strong>{busy}</strong><p>{progress||'Waiting for the server. Provider requests can take a few minutes.'}</p><small>Elapsed: {elapsed}s. You can browse other workspace pages.</small></div>{busy==='Analyzing repository...'&&<button className="outline" onClick={()=>controller.current?.abort()}>Stop waiting</button>}{busy==='Indexing repository...'&&<button className="outline" onClick={()=>{controller.current?.abort();setProgress('Requesting cancellation…')}}>Cancel indexing</button>}</div>}
  {notice&&<div className="success-message" role="status"><CheckCircle2 size={18}/>{notice}</div>}

@@ -5,7 +5,7 @@ export function useLiquidInteractions(rootRef) {
  useEffect(()=>{
   const root=rootRef.current;if(!root)return;
   const pointer=(event)=>{
-   if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)return;
+   if(window.matchMedia?.('(prefers-reduced-motion: reduce), (pointer: coarse)').matches)return;
    const button=event.target.closest('button,.gallery-tile');
    if(!button||!root.contains(button)||button.disabled||button.classList.contains('rl-theme-switch'))return;
    const rect=button.getBoundingClientRect();
