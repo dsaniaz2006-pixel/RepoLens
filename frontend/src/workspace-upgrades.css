@@ -94,7 +94,6 @@
 /* RepoLens mobile navigation v1 — desktop stays unchanged. */
 .rl-mobile-topbar,
 .rl-mobile-menu,
-.rl-mobile-close,
 .rl-mobile-tools,
 .rl-mobile-backdrop {display:none}
 
@@ -127,8 +126,7 @@
   color:var(--text);
  }
  .rl-mobile-identity img {flex-shrink:0}
- .app .rl-mobile-menu,
- .app .rl-mobile-close {
+ .app .rl-mobile-menu {
   display:grid;
   place-items:center;
   width:44px;
@@ -138,11 +136,6 @@
   background:var(--panel);
   border:1px solid var(--border);
   border-radius:12px;
- }
- .app .rl-mobile-close {
-  position:absolute;
-  top:18px;
-  right:15px;
  }
  .app .rl-mobile-backdrop {
   display:block;
@@ -163,7 +156,7 @@
   z-index:200;
   width:min(340px,88vw) !important;
   height:100dvh;
-  padding:78px 16px 22px;
+  padding:30px 16px 22px;
   background:var(--side);
   border-right:1px solid var(--border);
   box-shadow:16px 0 40px rgba(0,0,0,.18);
