@@ -1,6 +1,7 @@
 import React, {useCallback,useEffect,useRef,useState} from 'react';
 import {ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Code2, ExternalLink, Github, GitBranch, Layers, LockKeyhole, RefreshCw, ShieldCheck, Sparkles} from 'lucide-react';
 import {getProviderAvailability, oauthLoginUrl, postLoginRedirect, AUTH_ERROR_MESSAGES} from './authFlow.mjs';
+import {waitForBackend} from '../../services/backendWake.mjs';
 import './auth.css';
 
 const initialProviders={google:false,github:false};
@@ -58,11 +59,22 @@ export function AuthComponent({logo=<RepoLogo/>,brandName='RepoLens',mode='signu
     activeRequest.current?.abort();
     const controller=new AbortController();
     activeRequest.current=controller;
-    const timeout=setTimeout(()=>controller.abort(),15000);
+    let timeout;
     setChecking(true);
     setProviders(initialProviders);
     setStatus('Checking sign-in options…');
     try {
+      await waitForBackend({
+        signal:controller.signal,
+        onProgress:({attempt})=>{
+          if(activeRequest.current===controller){
+            setStatus(attempt===1
+              ?'Connecting to RepoLens server… This can take about a minute after inactivity.'
+              :`Starting RepoLens server… connection attempt ${attempt}`);
+          }
+        },
+      });
+      timeout=setTimeout(()=>controller.abort(),15000);
       const result=await authJSON('/api/auth/providers',controller.signal);
       const nextProviders=getProviderAvailability(result);
       if(controller.signal.aborted)return;
@@ -74,7 +86,7 @@ export function AuthComponent({logo=<RepoLogo/>,brandName='RepoLens',mode='signu
       if(controller.signal.aborted&&activeRequest.current!==controller)return;
       setStatus(error.name==='AbortError'
         ?'The sign-in service took too long. Check that the server is running, then select Check again.'
-        :'The sign-in service is unavailable. Check that the server is running, then select Check again.');
+        :(error.message?.includes('did not become ready') ? 'RepoLens server is taking longer to start. Select Check again to retry.' : 'The sign-in service is unavailable. Check that the server is running, then select Check again.'));
     } finally {
       clearTimeout(timeout);
       if(activeRequest.current===controller){activeRequest.current=null;setChecking(false);}

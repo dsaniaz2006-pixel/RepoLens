@@ -20,6 +20,7 @@ import {useLiquidNav} from './hooks/useLiquidNav.js';
 import './workspace-upgrades.css';
 const tabs=['Overview','Tech Stack','Key Files','Code Flow','Improvements','First Contribution','Interview','Ask RepoLens'];
 import {postJSON, getJSON, setCSRFToken, runIndexJob, streamAnalyze, downloadReport} from './services/apiClient.js';
+import {waitForBackend} from './services/backendWake.mjs';
 const api=(path,data)=>postJSON('/api/'+path,data);
 const text=(x)=>typeof x==='string'?x:JSON.stringify(x||'');
 
@@ -160,8 +161,23 @@ if(sharedChecklistToken){
   return data.user;
  }
  function startWorkspace(){
-  root.render(<div role="status" style={{padding:40}}>Checking your session…</div>);
-  verifySession().then(user=>root.render(<App user={user}/>)).catch(error=>root.render(<div role="alert" style={{padding:40}}><h2>Unable to check your session</h2><p>{error.message}</p><button onClick={startWorkspace}>Retry connection</button><p><a href="/login/">Go to login</a></p></div>));
+  const showConnecting = ({attempt}) => root.render(
+   <div role="status" aria-live="polite" style={{minHeight:'100vh',background:'#121416',color:'#f5f5f3',display:'grid',placeItems:'center',padding:28,textAlign:'center'}}>
+    <div style={{maxWidth:440}}><h2>Connecting to RepoLens server…</h2>
+     <p style={{color:'#aebbd1',lineHeight:1.6}}>The backend may be waking up after inactivity. This can take about a minute on Render Free.</p>
+     <p style={{color:'#88bee4'}}>Connection attempt {attempt}</p>
+    </div>
+   </div>
+  );
+  showConnecting({attempt:1});
+  waitForBackend({onProgress:showConnecting})
+   .then(()=>verifySession())
+   .then(user=>root.render(<App user={user}/>))
+   .catch(error=>root.render(<div role="alert" style={{minHeight:'100vh',padding:30,background:'#121416',color:'#f5f5f3'}}>
+    <h2>Unable to connect to RepoLens</h2><p>{error.message}</p>
+    <button type="button" onClick={startWorkspace}>Retry connection</button>
+    <p><a href="/login/">Go to login</a></p>
+   </div>));
  }
  startWorkspace();
  // Only HTTP 401 triggers a login redirect in readJSON; a network interruption
