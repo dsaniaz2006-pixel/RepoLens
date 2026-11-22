@@ -1,4 +1,5 @@
 import {serverErrorMessage} from './errors.mjs';
+import {ensureBackendReady} from './backendWake.mjs';
 let csrfToken = '';
 export function setCSRFToken(value) { csrfToken = value || ''; }
 // One place for API response handling: Vite proxies /api to the Python server.
@@ -22,6 +23,9 @@ export async function readJSON(response) {
 }
 // Bound the complete request, including reading the response body.
 async function request(url, init={}, {signal, timeoutMs=30000, blob=false}={}) {
+  // Wake the backend before starting the operation's own timeout.
+  // Only the health GET is retried; the actual request is sent once.
+  await ensureBackendReady({signal});
   const controller = new AbortController();
   const abort = ()=>controller.abort();
   if(signal?.aborted) controller.abort();
@@ -81,6 +85,8 @@ export async function deleteJSON(url) { return request(url,{method:"DELETE",head
 export async function streamAnalyze(url, {signal, onProgress=()=>{}}={}) {
   let response;
   try {
+    // Preflight only; never replay the analysis POST after it is sent.
+    await ensureBackendReady({signal});
     response = await fetch('/api/analyze/stream', {
       method: 'POST', credentials: 'same-origin', cache: 'no-store',
       headers: {'Content-Type':'application/json',...(csrfToken?{'X-CSRF-Token':csrfToken}:{})},

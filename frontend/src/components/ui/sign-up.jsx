@@ -7,6 +7,7 @@ import './auth.css';
 const initialProviders={google:false,github:false};
 
 async function authJSON(url,signal) {
+  await waitForBackend({signal});
   const response=await fetch(url,{credentials:'same-origin',cache:'no-store',signal});
   if(!response.ok)throw new Error(`HTTP ${response.status}`);
   return response.json();

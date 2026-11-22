@@ -2,6 +2,15 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readJSON, postJSON, getJSON, setCSRFToken } from '../src/apiClient.js';
 
+function withHealthyBackend(handler) {
+  return async (url, init) => {
+    if (url === '/api/health') {
+      return new Response('{"status":"ok"}');
+    }
+    return handler(url, init);
+  };
+}
+
 test('returns a valid success JSON response', async () => {
   assert.deepEqual(await readJSON(new Response('{"status":"ok"}',{status:200})),{status:'ok'});
 });
@@ -16,12 +25,12 @@ test('reports a success response with invalid JSON', async () => {
 });
 test('postJSON sends the expected request body', async () => {
   const previous=globalThis.fetch;
-  globalThis.fetch=async (url,init) => {
+  globalThis.fetch=withHealthyBackend(async (url,init) => {
     assert.equal(url,'/api/analyze');
     assert.equal(init.method,'POST');
     assert.equal(JSON.parse(init.body).url,'https://github.com/pallets/flask');
     return new Response('{"status":"ok"}');
-  };
+  });
   try { assert.equal((await postJSON('/api/analyze',{url:'https://github.com/pallets/flask'})).status,'ok'); }
   finally { globalThis.fetch=previous; }
 });
