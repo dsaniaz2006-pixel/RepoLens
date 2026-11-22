@@ -7,7 +7,7 @@ import Conversations from './features/conversations/Conversations.jsx';
 import PublicChecklist from './features/checklist/PublicChecklist.jsx';
 import React, {useEffect,useLayoutEffect,useState,useRef,useCallback} from 'react';
 import {createRoot} from 'react-dom/client';
-import {Github, Search, House, Globe2, Clock3, Settings, Sparkles, FileText, FolderTree, BookOpen, ArrowRight, Download, Link as LinkIcon, AlertCircle, Layers, MessageSquare, CheckCircle2, Menu} from 'lucide-react';
+import {Github, Search, House, Globe2, Clock3, Settings, Sparkles, FileText, FolderTree, BookOpen, ArrowRight, Download, Link as LinkIcon, AlertCircle, Layers, MessageSquare, CheckCircle2, Menu, X} from 'lucide-react';
 import './style.css';
 import './theme-switch.css';
 import CinematicThemeSwitch from './components/layout/CinematicThemeSwitch.jsx';
@@ -36,7 +36,7 @@ function App({user}){
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#121416':'#eef2f4');
  },[dark]);
  const controller=useRef(null);
- const appRef=useRef(null),contentRef=useRef(null),navRef=useRef(null);
+ const appRef=useRef(null),contentRef=useRef(null),navRef=useRef(null),menuBtnRef=useRef(null),wasMobileOpen=useRef(false);
  useEffect(()=>{getJSON('/api/history').then(setHistory).catch(e=>setError('History could not be loaded: '+e.message))},[]);
  useEffect(()=>{if(!busy)return;const start=Date.now();setElapsed(0);const timer=setInterval(()=>setElapsed(Math.floor((Date.now()-start)/1000)),1000);return()=>clearInterval(timer)},[busy]);
 
@@ -71,19 +71,34 @@ function App({user}){
   window.location.replace('/login/');
  });
  useEffect(()=>{
-  if(!mobileOpen)return;
+  if(!mobileOpen){
+   if(wasMobileOpen.current){
+    wasMobileOpen.current=false;
+    window.requestAnimationFrame(()=>menuBtnRef.current?.focus({preventScroll:true}));
+   }
+   return;
+  }
+  wasMobileOpen.current=true;
   const oldOverflow=document.body.style.overflow;
-  const onEscape=(event)=>{
-   if(event.key==='Escape')setMobileOpen(false);
+  const onKeyDown=(event)=>{
+   if(event.key==='Escape'){setMobileOpen(false);return;}
+   if(event.key!=='Tab')return;
+   const drawer=document.getElementById('repolens-mobile-navigation');
+   if(!drawer)return;
+   const focusables=[...drawer.querySelectorAll('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),[tabindex]:not([tabindex="-1"])')];
+   if(!focusables.length)return;
+   const first=focusables[0],last=focusables[focusables.length-1];
+   if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+   else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
   };
   document.body.style.overflow='hidden';
-  window.addEventListener('keydown',onEscape);
+  window.addEventListener('keydown',onKeyDown);
   window.requestAnimationFrame(()=>{
    document.querySelector('.app.mobile-open .side nav button')?.focus({preventScroll:true});
   });
   return ()=>{
    document.body.style.overflow=oldOverflow;
-   window.removeEventListener('keydown',onEscape);
+   window.removeEventListener('keydown',onKeyDown);
   };
  },[mobileOpen]);
  useEffect(()=>{
@@ -99,7 +114,7 @@ function App({user}){
    <img src="/favicon-v2.svg?v=20" alt="" width="34" height="34"/>
    RepoLens
   </span>
-  <button type="button" className="rl-mobile-menu"
+  <button ref={menuBtnRef} type="button" className="rl-mobile-menu"
    aria-label="Open navigation"
    aria-expanded={mobileOpen}
    aria-controls="repolens-mobile-navigation"
@@ -114,7 +129,7 @@ function App({user}){
   aria-label="Workspace navigation drawer"
   role={mobileOpen?'dialog':undefined}
   aria-modal={mobileOpen?'true':undefined}>
- <div className="brand"><img className="brand-logo" src="/favicon-v2.svg?v=20" alt="" width="40" height="40"/><div><h2>RepoLens</h2><small>Understand any GitHub repo with AI</small></div></div><nav ref={navRef} aria-label="Workspace navigation"><span className="rl-nav-water" aria-hidden="true"/>{[['Home',House],['Analyze Repo',Search],['Knowledge Hub',BookOpen],['Conversations',MessageSquare],['Past Analyses',Clock3],['Settings',Settings]].map(([n,Icon])=><button key={n} className={page===n?'nav active':'nav'} aria-current={page===n?'page':undefined} onClick={()=>active(n)}><Icon size={21}/>{n}</button>)}<button className={page==='Public Gallery'?'nav gallery-nav active':'nav gallery-nav'} type="button" aria-current={page==='Public Gallery'?'page':undefined} onClick={()=>active('Public Gallery')}><Globe2 size={21}/>Public Gallery</button></nav>
+ <div className="brand"><img className="brand-logo" src="/favicon-v2.svg?v=20" alt="" width="40" height="40"/><div><h2>RepoLens</h2><small>Understand any GitHub repo with AI</small></div>{mobileOpen&&<button type="button" className="rl-mobile-close" aria-label="Close navigation" onClick={()=>setMobileOpen(false)}><X size={20}/></button>}</div><nav ref={navRef} aria-label="Workspace navigation"><span className="rl-nav-water" aria-hidden="true"/>{[['Home',House],['Analyze Repo',Search],['Knowledge Hub',BookOpen],['Conversations',MessageSquare],['Past Analyses',Clock3],['Settings',Settings]].map(([n,Icon])=><button key={n} className={page===n?'nav active':'nav'} aria-current={page===n?'page':undefined} onClick={()=>active(n)}><Icon size={21}/>{n}</button>)}<button className={page==='Public Gallery'?'nav gallery-nav active':'nav gallery-nav'} type="button" aria-current={page==='Public Gallery'?'page':undefined} onClick={()=>active('Public Gallery')}><Globe2 size={21}/>Public Gallery</button></nav>
  <div className="rl-mobile-tools">
   <div className="rl-mobile-account">
    <span className="avatar">{user.name.slice(0,1).toUpperCase()}</span>
