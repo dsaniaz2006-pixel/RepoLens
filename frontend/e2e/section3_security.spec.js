@@ -12,6 +12,7 @@ test('Account Security lists only safe audit metadata and refreshes after an API
   let events=[];
   let keys=[];
   const rawSecret='rl_live_test_one_time_value_do_not_log';
+  await page.route('**/api/health', r => r.fulfill({ json: { status: 'ok' } }));
   await page.route('**/api/auth/me',r=>r.fulfill({json:{user:{id:'alice',name:'Alice'},csrf_token:'csrf'}}));
   await page.route('**/api/history',r=>r.fulfill({json:[]}));
   await page.route('**/api/config-status',r=>r.fulfill({json:{model_provider:'gemini',gemini_key_configured:true,github_token_configured:true}}));
@@ -40,6 +41,7 @@ test('Account Security lists only safe audit metadata and refreshes after an API
 // This page previously had an inline script. The strict CSP now requires
 // a same-origin module so invite tokens aren't sent through unsafe script injection.
 test('Invitation page uses same-origin JS and never embeds an inline script', async ({page})=>{
+  await page.route('**/api/health', r => r.fulfill({ json: { status: 'ok' } }));
   await page.route('**/api/auth/me',r=>r.fulfill({status:401,json:{detail:'Sign in to continue.'}}));
   await page.goto('/join.html?token=abcdefghijklmnopqrstuvwxyz0123456789');
   await expect(page.getByText('Sign in, then review and confirm this invitation.')).toBeVisible();

@@ -9,6 +9,7 @@ test.beforeEach(async ({page}) => {
 // Browser contract checks use fake provider data. Real Ollama, GitHub Advisories
 // and the 20 manually reviewed AI reports are separate live acceptance gates.
 test.beforeEach(async ({page})=>{
+ await page.route('**/api/health', r => r.fulfill({ json: { status: 'ok' } }));
  await page.route('**/api/auth/me',r=>r.fulfill({json:{user:{id:'alice',name:'Alice'},csrf_token:'csrf'}}));
  await page.route('**/api/history',r=>r.fulfill({json:[]}));
  await page.route('**/api/repositories',r=>r.fulfill({json:[]}));

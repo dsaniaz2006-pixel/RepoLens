@@ -9,6 +9,7 @@ test.beforeEach(async ({page}) => {
 // User-visible upgrade journeys. External GitHub/Gemini requests are mocked;
 // server authorization and SQL persistence are covered by Python HTTP tests.
 test.beforeEach(async ({page}) => {
+  await page.route('**/api/health', r => r.fulfill({ json: { status: 'ok' } }));
   await page.route('**/api/auth/me', route => route.fulfill({json:{user:{id:'alice',name:'Alice'},csrf_token:'csrf-test'}}));
   await page.route('**/api/history', route => route.fulfill({json:[]}));
   await page.route('**/api/repositories', route => route.fulfill({json:[]}));

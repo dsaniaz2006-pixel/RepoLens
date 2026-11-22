@@ -8,6 +8,7 @@ const RESPONSE={
 };
 test('authenticated analysis uses SSE progress and renders final report',async({page})=>{
   let streams=0,legacy=0;
+  await page.route('**/api/health', r => r.fulfill({ json: { status: 'ok' } }));
   await page.route('**/api/auth/me',route=>route.fulfill({json:{user:{id:'test-user',name:'Test User'},csrf_token:'validcsrf'}}));
   await page.route('**/api/history',route=>route.fulfill({json:[]}));
   await page.route('**/api/usage',route=>route.fulfill({json:{plan:'free',reset_at:1900000000,
@@ -30,6 +31,7 @@ test('authenticated analysis uses SSE progress and renders final report',async({
 });
 
 test('analyze shows a safe 429 quota message without confusing it for a stream',async({page})=>{
+  await page.route('**/api/health', r => r.fulfill({ json: { status: 'ok' } }));
   await page.route('**/api/auth/me',route=>route.fulfill({json:{user:{id:'user',name:'User'},csrf_token:'csrf'}}));
   await page.route('**/api/history',route=>route.fulfill({json:[]}));
   await page.route('**/api/usage',route=>route.fulfill({json:{plan:'free',usage:{analyze:{used:5,limit:5},ask:{used:0,limit:20},index:{used:0,limit:2}}}}));

@@ -12,6 +12,7 @@ const inviteId='a'.repeat(64);
 async function setup(page,role='owner') {
   let invitations=[];
   const createRequests=[];
+  await page.route('**/api/health', r => r.fulfill({ json: { status: 'ok' } }));
   await page.route('**/api/auth/me',r=>r.fulfill({json:{user:{id:'alice',name:'Alice'},csrf_token:'csrf'}}));
   await page.route('**/api/history',r=>r.fulfill({json:[]}));
   await page.route('**/api/repositories',r=>r.fulfill({json:[]}));

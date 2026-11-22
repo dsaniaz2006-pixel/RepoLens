@@ -5,6 +5,7 @@ const citation={path:'src/flask/app.py',start_line:11,end_line:13};
 
 test('saved chat restores after browser reload, follow-up and revision-pinned evidence survive',async({page})=>{
  let chat={id:'section5-1',repository:REPO,revision:SHA,version:0,title:REPO,messages:[],pending:false};
+ await page.route('**/api/health', r => r.fulfill({ json: { status: 'ok' } }));
  await page.route('**/api/auth/me',r=>r.fulfill({json:{user:{id:'alice',name:'Alice'},csrf_token:'csrf'}}));
  await page.route('**/api/history',r=>r.fulfill({json:[]}));
  await page.route('**/api/usage',r=>r.fulfill({json:{plan:'free',reset_at:1900000000,usage:{analyze:{used:0,limit:5},ask:{used:0,limit:20},index:{used:0,limit:2}}}}));

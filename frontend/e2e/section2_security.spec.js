@@ -11,6 +11,7 @@ test.beforeEach(async ({page}) => {
 test('Settings: issue one-time developer key, copy and revoke it', async ({page}) => {
   let keys=[];
   const secret='rl_live_example_token_only_display_once';
+  await page.route('**/api/health', r => r.fulfill({ json: { status: 'ok' } }));
   await page.route('**/api/auth/me',r=>r.fulfill({json:{user:{id:'alice',name:'Alice Tester'},csrf_token:'csrf'}}));
   await page.route('**/api/history',r=>r.fulfill({json:[]}));
   await page.route('**/api/config-status',r=>r.fulfill({json:{model_provider:'gemini',gemini_key_configured:false,github_token_configured:false}}));
@@ -40,6 +41,7 @@ test('Settings: issue one-time developer key, copy and revoke it', async ({page}
 });
 
 test('Settings: shows active device and sends revoke-all request',async ({page})=>{
+  await page.route('**/api/health', r => r.fulfill({ json: { status: 'ok' } }));
   await page.route('**/api/auth/me',r=>r.fulfill({json:{user:{id:'alice',name:'Alice'},csrf_token:'csrf'}}));
   await page.route('**/api/history',r=>r.fulfill({json:[]}));
   await page.route('**/api/config-status',r=>r.fulfill({json:{}}));

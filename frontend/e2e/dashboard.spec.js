@@ -5,6 +5,7 @@ const report=(repo)=>({metadata:{full_name:repo,html_url:`https://github.com/${r
 test.beforeEach(async({page})=>{
  // Start with a closed API boundary; overrides below model this test's requests.
  await mockAuthenticatedWorkspace(page,{user:{id:'test',name:'Test user'},csrfToken:'test-csrf'});
+ await page.route('**/api/health', r => r.fulfill({ json: { status: 'ok' } }));
  await page.route('**/api/history',route=>route.fulfill({json:[{metadata:report('b/two').metadata,modified:1}]}));
  await page.route('**/api/history/b/two',route=>route.fulfill({json:report('b/two')}));
  await page.route('**/api/analyze/stream',route=>{

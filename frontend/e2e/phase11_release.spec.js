@@ -3,6 +3,7 @@ import {test, expect} from '@playwright/test';
 // Phase 11 browser regression (mocked provider failure, real Vite-rendered UI).
 // Production OAuth and deployed TLS are deliberately separate live gates.
 test('Phase 11 session outage never mounts a private dashboard', async ({page}) => {
+ await page.route('**/api/health', r => r.fulfill({ json: { status: 'ok' } }));
  await page.route('**/api/auth/me',r=>r.fulfill({status:503,json:{detail:'Authentication temporarily unavailable'}}));
  await page.goto('/dashboard/');
  await expect(page.getByRole('alert')).toContainText('Unable to check your session');

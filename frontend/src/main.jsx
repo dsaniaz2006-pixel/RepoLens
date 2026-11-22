@@ -174,7 +174,7 @@ if(sharedChecklistToken){
    .then(()=>verifySession())
    .then(user=>root.render(<App user={user}/>))
    .catch(error=>root.render(<div role="alert" style={{minHeight:'100vh',padding:30,background:'#121416',color:'#f5f5f3'}}>
-    <h2>Unable to connect to RepoLens</h2><p>{error.message}</p>
+    <h2>Unable to check your session</h2><p>{error.message}</p>
     <button type="button" onClick={startWorkspace}>Retry connection</button>
     <p><a href="/login/">Go to login</a></p>
    </div>));

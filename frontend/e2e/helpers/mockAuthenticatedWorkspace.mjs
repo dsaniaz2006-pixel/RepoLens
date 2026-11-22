@@ -53,6 +53,7 @@ export function workspaceMockResponse(path, {user, csrfToken} = {}) {
 export async function mockAuthenticatedWorkspace(page, options = {}) {
   const unexpected = [];
   await page.route('**/api/**', route => {
+    if (route.request().url().includes('/api/health')) return route.fulfill({ json: { status: 'ok' } });
     const request = route.request();
     const path = new URL(request.url()).pathname;
     const response = request.method() === 'GET'

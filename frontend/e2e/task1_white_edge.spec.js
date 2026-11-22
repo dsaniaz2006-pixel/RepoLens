@@ -10,6 +10,7 @@ test.beforeEach(async ({page}) => {
 // Mac trackpad rubber-band scrolling can reveal html/body behind a dark React app.
 test('dashboard has no white document edge in dark and light modes', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('repolens-theme','dark'));
+  await page.route('**/api/health', r => r.fulfill({ json: { status: 'ok' } }));
   await page.route('**/api/auth/me', route => route.fulfill({json:{user:{id:'edge-test',name:'Theme Tester'},csrf_token:'test-csrf'}}));
   await page.route('**/api/history', route => route.fulfill({json:[]}));
   await page.goto('/dashboard/');

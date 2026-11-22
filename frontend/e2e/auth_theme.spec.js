@@ -3,6 +3,7 @@ import {test,expect} from '@playwright/test';
 // All provider checks are intercepted; this does not exercise real OAuth consent.
 async function mockAnonymous(page,providers={google:true,github:true}){
   await page.route('**/api/auth/providers',route=>route.fulfill({status:200,json:{providers}}));
+  await page.route('**/api/health', r => r.fulfill({ json: { status: 'ok' } }));
   await page.route('**/api/auth/me',route=>route.fulfill({status:401,json:{detail:'not authenticated'}}));
 }
 
@@ -30,6 +31,7 @@ test('provider outage fails closed and retry can restore provider availability',
   await page.route('**/api/auth/providers',route=>online
     ?route.fulfill({status:200,json:{providers:{google:true,github:false}}})
     :route.fulfill({status:503,json:{detail:'offline'}}));
+  await page.route('**/api/health', r => r.fulfill({ json: { status: 'ok' } }));
   await page.route('**/api/auth/me',route=>route.fulfill({status:401,json:{detail:'not authenticated'}}));
   await page.goto('/signup/');
   await expect(page.getByRole('status')).toContainText('sign-in service is unavailable');
