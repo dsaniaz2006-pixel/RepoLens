@@ -799,3 +799,37 @@
 @media (max-width:700px) and (prefers-reduced-motion:reduce) {
  .app .rl-mobile-backdrop {animation:none!important}
 }
+
+
+/* RepoLens mobile UI upgrade v4 — fix clipped report tabs, hero line-wrap, and empty state spacing. */
+@media (max-width:700px) {
+ .app .hero p br {
+  display:none;
+ }
+ .app .hero p {
+  font-size:14px;
+  line-height:1.55;
+  margin:10px 0 0;
+ }
+ .app .report {
+  min-height:0;
+ }
+ .app .report-head p.muted {
+  margin:6px 0 0;
+  line-height:1.45;
+ }
+ .app .report .tab {
+  flex:0 0 auto;
+  white-space:nowrap;
+ }
+ .app .empty {
+  padding:36px 18px;
+ }
+ .app .empty h2 {
+  font-size:19px;
+  margin:12px 0 8px;
+ }
+ .app .content {
+  padding-bottom:calc(64px + env(safe-area-inset-bottom,0px));
+ }
+}
