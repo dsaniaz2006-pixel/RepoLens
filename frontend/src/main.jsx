@@ -164,7 +164,7 @@ if(sharedChecklistToken){
   const showConnecting = ({attempt}) => root.render(
    <div role="status" aria-live="polite" style={{minHeight:'100vh',background:'#121416',color:'#f5f5f3',display:'grid',placeItems:'center',padding:28,textAlign:'center'}}>
     <div style={{maxWidth:440}}><h2>Connecting to RepoLens server…</h2>
-     <p style={{color:'#aebbd1',lineHeight:1.6}}>The backend may be waking up after inactivity. This can take about a minute on Render Free.</p>
+     <p style={{color:'#aebbd1',lineHeight:1.6}}>The backend may be waking up after inactivity. We’ll check for up to 30 seconds. If it is not ready, select Check again.</p>
      <p style={{color:'#88bee4'}}>Connection attempt {attempt}</p>
     </div>
    </div>

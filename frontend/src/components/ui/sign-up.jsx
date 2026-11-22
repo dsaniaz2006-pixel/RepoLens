@@ -70,7 +70,7 @@ export function AuthComponent({logo=<RepoLogo/>,brandName='RepoLens',mode='signu
         onProgress:({attempt})=>{
           if(activeRequest.current===controller){
             setStatus(attempt===1
-              ?'Connecting to RepoLens server… This can take about a minute after inactivity.'
+              ?'Connecting to RepoLens server… Checking for up to 30 seconds.'
               :`Starting RepoLens server… connection attempt ${attempt}`);
           }
         },

@@ -112,7 +112,7 @@ export async function ensureBackendReady({
   endpoint = '/api/health',
   signal,
   onProgress = () => {},
-  maxWaitMs = 110000,
+  maxWaitMs = 30000,
   attemptTimeoutMs = 20000,
   retryDelayMs = 2500,
   cacheMs = READY_CACHE_MS,
